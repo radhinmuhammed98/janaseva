@@ -2,6 +2,72 @@ const LOGO_DATA_URL = "";
 
 const DEFAULT_DATA = 
 {
+  "PAN Card": {
+    "_icon": "",
+    "_color": "#003180",
+    "_links": [],
+    "PAN NSDL": [
+      {
+        "name": "New PAN – NSDL",
+        "url": "https://onlineservices.proteantech.in/paam/endUserRegisterContact.html",
+        "desc": "Apply for fresh PAN card via NSDL (Form 49A)",
+        "keywords": [
+          "new pan",
+          "fresh pan",
+          "pan apply",
+          "nsdl pan",
+          "income tax id",
+          "form 49a"
+        ]
+      },
+      {
+        "name": "PAN Correction – NSDL",
+        "url": "https://onlineservices.proteantech.in/paam/endUserRegisterContact.html",
+        "desc": "Correct name, DOB, photo on PAN via NSDL",
+        "keywords": [
+          "pan correction",
+          "pan update",
+          "pan change",
+          "nsdl correction"
+        ]
+      }
+    ],
+    "PAN UTIITSL": [
+      {
+        "name": "New PAN – UTIITSL",
+        "url": "https://www.pan.utiitsl.com/PAN/newA.html",
+        "desc": "Apply for PAN card via UTI portal (alternate)",
+        "keywords": [
+          "pan uti",
+          "utiitsl pan",
+          "pan card uti",
+          "alternate pan"
+        ]
+      },
+      {
+        "name": "PAN Correction – UTIITSL",
+        "url": "https://www.pan.utiitsl.com/csf.html",
+        "desc": "Correct PAN details through UTI portal",
+        "keywords": [
+          "pan correction uti",
+          "uti correction",
+          "pan name fix"
+        ]
+      },
+      {
+        "name": "PAN Reprint - UTIITSL",
+        "url": "https://www.pan.utiitsl.com/PAN_ONLINE/reprintHome",
+        "desc": "Reprint PAN Card through UTIITSL",
+        "keywords": [
+          "reprint",
+          "pan card",
+          "reprint pan",
+          "pan",
+          "card"
+        ]
+      }
+    ]
+  },
   "Government ID Services": {
     "_icon": "🪪",
     "_color": "#1a56db",
@@ -240,7 +306,8 @@ const DEFAULT_DATA =
           "passport dispatch"
         ]
       }
-    ]
+    ],
+    "PAN (UTITSL)": []
   },
   "eDistrict Kerala": {
     "_icon": "🏛️",
@@ -362,6 +429,19 @@ const DEFAULT_DATA =
           "track application",
           "edistrict status",
           "certificate status"
+        ]
+      }
+    ],
+    "_links": [
+      {
+        "name": "Open eDistrict Kerala",
+        "url": "https://edistrict.kerala.gov.in/",
+        "desc": "Open the main eDistrict Kerala portal directly.",
+        "keywords": [
+          "edistrict",
+          "kerala edistrict",
+          "main portal",
+          "certificate portal"
         ]
       }
     ]
