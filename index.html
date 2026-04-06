@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Janaseva Kendram - CSC Operations</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="htop">
+        <div class="logo-box">
+          <img id="logo-img" src="" alt="Logo" onerror="this.style.display='none'">
+        </div>
+        <div class="brand">
+          <div class="brand-name"><span class="g">Janaseva</span> <span class="o">Kendram</span></div>
+          <div class="brand-sub">Ismail KV · Thennala Westbazar · 📞 9847816928</div>
+        </div>
+        <div class="hsearch">
+          <div class="hsearch-wrap">
+            <span class="hsearch-ico">⌕</span>
+            <input type="text" id="global-search" placeholder="Search services… (press /)">
+          </div>
+        </div>
+        <div class="hright">
+          <button class="hbtn edit-btn" id="edit-btn" onclick="toggleEdit()">✏️ <span>Edit</span></button>
+          <button class="hbtn" id="theme-btn" onclick="toggleTheme()">☀️ <span>Light</span></button>
+          <div class="hinfo">
+            <a href="tel:9847816928">📞 9847816928</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="body">
+      <nav class="sidebar" id="sidebar">
+        <div class="sb-section">
+          <div class="sb-label">Main</div>
+          <div class="sb-item active" data-view="services" onclick="showView('services')">
+            <span class="sb-icon">🌐</span><span>Services</span>
+          </div>
+          <div class="sb-item" data-view="billing" onclick="showView('billing')">
+            <span class="sb-icon">🧾</span><span>Billing</span>
+          </div>
+        </div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">
+          <div class="sb-label">Tools</div>
+          <div class="sb-item" data-view="pdf-merge" onclick="showView('pdf-merge')">
+            <span class="sb-icon">📄</span><span>Merge PDF</span>
+          </div>
+          <div class="sb-item" data-view="img-to-pdf" onclick="showView('img-to-pdf')">
+            <span class="sb-icon">🖼️</span><span>Image → PDF</span>
+          </div>
+          <div class="sb-item" data-view="img-resize" onclick="showView('img-resize')">
+            <span class="sb-icon">📐</span><span>Resize Image</span>
+          </div>
+          <div class="sb-item" data-view="img-compress" onclick="showView('img-compress')">
+            <span class="sb-icon">🗜️</span><span>Compress Image</span>
+          </div>
+          <div class="sb-item" data-view="id-card" onclick="showView('id-card')">
+            <span class="sb-icon">🪪</span><span>ID Card Print</span>
+          </div>
+        </div>
+        <div class="sb-divider"></div>
+        <div class="sb-section">
+          <div class="sb-label" style="opacity:.5">Coming Soon</div>
+          <div class="sb-item" style="opacity:.4;cursor:default">
+            <span class="sb-icon">🤖</span><span>AI Tools</span>
+          </div>
+          <div class="sb-item" style="opacity:.4;cursor:default">
+            <span class="sb-icon">🔍</span><span>OCR Reader</span>
+          </div>
+        </div>
+        <div class="sb-bottom">
+          <div class="sb-item" onclick="openJson()">
+            <span class="sb-icon">⚙️</span><span>Manage Data</span>
+          </div>
+        </div>
+      </nav>
+
+      <main class="panel" id="panel">
+        <div class="tool-view active" id="view-services">
+          <div class="services-shell">
+            <div class="services-top">
+              <div>
+                <div class="page-title">Services Dashboard</div>
+                <div class="page-sub">Category-first access for daily CSC work</div>
+              </div>
+              <div class="view-actions">
+                <button class="btn btn-orange btn-sm ec" onclick="openCategoryEditor()">Add Category</button>
+                <button class="btn btn-ghost btn-sm ec" onclick="openJson()" id="edit-data-btn">Manage JSON</button>
+              </div>
+            </div>
+
+            <div class="services-stats card margin-bottom">
+              <div class="service-stat"><span class="service-dot dot-green"></span><span class="service-stat-value" id="stat-categories">0</span><span>Categories</span></div>
+              <div class="service-stat"><span class="service-dot dot-blue"></span><span class="service-stat-value" id="stat-subcategories">0</span><span>Subcategories</span></div>
+              <div class="service-stat"><span class="service-dot dot-orange"></span><span class="service-stat-value" id="stat-links">0</span><span>Links</span></div>
+              <div class="service-stat"><span class="service-dot dot-gold"></span><span class="service-stat-value" id="stat-favourites">0</span><span>Favourites</span></div>
+            </div>
+
+            <div class="services-banner ec">
+              <span class="banner-dot"></span>
+              Edit mode is on. You can manage data from the JSON editor without losing the cleaner dashboard layout.
+            </div>
+
+            <div class="service-block margin-bottom">
+              <div class="service-block-head">
+                <div class="service-block-title">Categories</div>
+                <div class="service-block-subtitle">Fast jump buttons for each category</div>
+              </div>
+              <div class="service-chip-row" id="category-chip-row"></div>
+            </div>
+
+            <div class="services-panels margin-bottom">
+              <div class="service-panel">
+                <div class="service-block-head">
+                  <div class="service-block-title">Recent Links</div>
+                  <div class="service-block-subtitle">Your latest opened services</div>
+                </div>
+                <div class="service-chip-row" id="recent-links-row">
+                  <span class="service-empty">Clicked links appear here</span>
+                </div>
+              </div>
+              <div class="service-panel">
+                <div class="service-block-head">
+                  <div class="service-block-title">Favourites</div>
+                  <div class="service-block-subtitle">Pinned links for quick repeat work</div>
+                </div>
+                <div class="service-chip-row" id="favourite-links-row">
+                  <span class="service-empty">Star links to keep them here</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="search-results-panel hidden" id="search-results-panel">
+              <div class="service-block-head">
+                <div class="service-block-title">Search Results</div>
+                <div class="service-block-subtitle" id="search-results-count"></div>
+              </div>
+              <div class="search-results-grid" id="search-results-grid"></div>
+            </div>
+
+            <div class="service-block-head section-label">
+              <div class="service-block-title">All Categories</div>
+              <div class="service-block-subtitle">Everything organised by category and subcategory</div>
+            </div>
+            <div class="category-card-grid" id="category-card-grid"></div>
+          </div>
+        </div>
+
+        <div class="tool-view" id="view-billing">
+          <div class="page-title">🧾 Billing System</div>
+          <div class="page-sub">Create bills, manage items, print receipts</div>
+          <div class="bill-layout">
+            <div class="bill-left">
+              <div class="card">
+                <div class="card-title">📋 Bill Details</div>
+                <div class="grid2">
+                  <div>
+                    <label class="label">Customer Name</label>
+                    <input class="inp" id="bill-cust" placeholder="Customer name (optional)">
+                  </div>
+                  <div>
+                    <label class="label">Bill #</label>
+                    <input class="inp" id="bill-no" placeholder="Auto">
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-title">➕ Add Item</div>
+                <div class="bill-add-form">
+                  <div>
+                    <label class="label">Item Name</label>
+                    <input class="inp" id="bill-item-name" placeholder="Service / product name" onkeydown="if(event.key==='Enter')addBillItem()">
+                  </div>
+                  <div>
+                    <label class="label">Qty</label>
+                    <input class="inp" id="bill-item-qty" type="number" value="1" min="1" style="text-align:center">
+                  </div>
+                  <div>
+                    <label class="label">Price (₹)</label>
+                    <input class="inp" id="bill-item-price" type="number" placeholder="0.00" step="0.01" onkeydown="if(event.key==='Enter')addBillItem()">
+                  </div>
+                  <div class="pad-top">
+                    <button class="btn btn-green" onclick="addBillItem()">+ Add</button>
+                  </div>
+                </div>
+                <div class="margin-top-small">
+                  <div class="label chip-label">Quick Add (common CSC services)</div>
+                  <div class="chip-row" id="preset-chips"></div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-title">📦 Items
+                  <button class="btn btn-danger btn-sm ml-auto" onclick="clearBill()">🗑 Clear Bill</button>
+                </div>
+                <table class="bill-table">
+                  <thead>
+                    <tr>
+                      <th>#</th><th>Item</th><th>Qty</th><th>Price</th><th>Total</th><th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="bill-tbody"><tr><td colspan="6" class="empty-row">No items added yet</td></tr></tbody>
+                </table>
+                <div class="padding-top">
+                  <div class="bill-total-row">
+                    <span class="label">Subtotal</span>
+                    <span id="bill-subtotal" class="mono-strong">₹0.00</span>
+                  </div>
+                  <div class="bill-total-row no-top">
+                    <span class="label">GST (0%)</span>
+                    <select class="inp gst-select" id="bill-gst" onchange="renderBillTotals()">
+                      <option value="0">No GST</option>
+                      <option value="5">5%</option>
+                      <option value="12">12%</option>
+                      <option value="18">18%</option>
+                    </select>
+                    <span id="bill-gst-amt" class="mono-small">₹0.00</span>
+                  </div>
+                  <div class="bill-total-row">
+                    <span class="grand-label">TOTAL</span>
+                    <span class="bill-total-val" id="bill-grand">₹0.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bill-right">
+              <div class="card fill-card">
+                <div class="card-title">🧾 Receipt Preview
+                  <button class="btn btn-orange btn-sm ml-auto" onclick="printReceipt()">🖨️ Print</button>
+                  <button class="btn btn-ghost btn-sm ml-small" onclick="copyReceipt()">📋 Copy</button>
+                </div>
+                <div class="receipt-preview" id="receipt-preview">No items yet…</div>
+              </div>
+              <div class="card">
+                <div class="card-title">📅 Saved Bills</div>
+                <div id="saved-bills-list" class="muted-text">No saved bills</div>
+                <button class="btn btn-ghost btn-sm full-width margin-top-small" onclick="saveBill()">💾 Save Current Bill</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-view" id="view-pdf-merge">
+          <div class="page-title">📄 Merge PDF</div>
+          <div class="page-sub">Combine multiple PDF files into one - runs entirely in your browser, no upload</div>
+          <div class="grid2 tool-grid">
+            <div class="col">
+              <div class="card">
+                <div class="card-title">📂 Select PDF Files</div>
+                <div class="drop-zone" id="pdf-dz" onclick="qs('#pdf-file-input').click()" ondragover="dzOver(event,'pdf-dz')" ondragleave="dzLeave('pdf-dz')" ondrop="dzDrop(event,'pdf')">
+                  <div class="dz-icon">📄</div>
+                  <div class="dz-text">Click or drag PDF files here</div>
+                  <div class="dz-sub">Multiple files supported · order is preserved</div>
+                </div>
+                <input type="file" id="pdf-file-input" accept=".pdf" multiple class="hidden-file" onchange="pdfFilesSelected(event)">
+                <div class="file-list" id="pdf-file-list"></div>
+              </div>
+              <div class="card">
+                <div class="card-title">⚙️ Options</div>
+                <label class="label margin-bottom-small">Output Filename</label>
+                <input class="inp" id="pdf-out-name" value="merged.pdf">
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-title">ℹ️ How it works</div>
+                <div class="help-text">
+                  1. Add two or more PDF files<br>
+                  2. Drag to reorder if needed<br>
+                  3. Click Merge - combines instantly in browser<br>
+                  4. Download the merged file<br><br>
+                  <span class="warn-text">⚠️ Uses pdf-lib library (loads from CDN on first use)</span>
+                </div>
+                <div class="progress-bar" id="pdf-progress"><div class="pb-fill" id="pdf-pb-fill"></div></div>
+                <button class="btn btn-orange full-width margin-top-small" onclick="mergePDFs()" id="pdf-merge-btn">🔀 Merge PDFs</button>
+                <div class="tool-result margin-top-small hidden" id="pdf-result"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-view" id="view-img-to-pdf">
+          <div class="page-title">🖼️ Image → PDF</div>
+          <div class="page-sub">Convert one or more images (JPG, PNG) to a PDF file - no internet needed</div>
+          <div class="grid2 tool-grid">
+            <div class="col">
+              <div class="card">
+                <div class="card-title">🖼️ Select Images</div>
+                <div class="drop-zone" id="i2p-dz" onclick="qs('#i2p-input').click()" ondragover="dzOver(event,'i2p-dz')" ondragleave="dzLeave('i2p-dz')" ondrop="dzDrop(event,'i2p')">
+                  <div class="dz-icon">🖼️</div>
+                  <div class="dz-text">Click or drag images here</div>
+                  <div class="dz-sub">JPG, PNG, WEBP · each image = one page</div>
+                </div>
+                <input type="file" id="i2p-input" accept="image/*" multiple class="hidden-file" onchange="i2pFilesSelected(event)">
+                <div class="file-list" id="i2p-file-list"></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-title">⚙️ Page Size</div>
+                <div class="grid2">
+                  <div>
+                    <label class="label">Page Size</label>
+                    <select class="inp" id="i2p-size">
+                      <option value="A4">A4</option>
+                      <option value="A3">A3</option>
+                      <option value="LETTER">US Letter</option>
+                      <option value="FIT">Fit to Image</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="label">Orientation</label>
+                    <select class="inp" id="i2p-orient">
+                      <option value="portrait">Portrait</option>
+                      <option value="landscape">Landscape</option>
+                    </select>
+                  </div>
+                </div>
+                <label class="label margin-top-small">Output Filename</label>
+                <input class="inp" id="i2p-name" value="images.pdf">
+                <div class="progress-bar margin-top-small"><div class="pb-fill" id="i2p-pb"></div></div>
+                <button class="btn btn-orange full-width margin-top-small" onclick="imagesToPDF()">📄 Convert to PDF</button>
+                <div class="tool-result margin-top-small hidden" id="i2p-result"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-view" id="view-img-resize">
+          <div class="page-title">📐 Resize Image</div>
+          <div class="page-sub">Resize any image to exact dimensions - runs in browser, nothing uploaded</div>
+          <div class="grid2 tool-grid">
+            <div class="col">
+              <div class="card">
+                <div class="card-title">📁 Load Image</div>
+                <div class="drop-zone" onclick="qs('#resize-input').click()">
+                  <div class="dz-icon">📐</div>
+                  <div class="dz-text">Click to select image</div>
+                  <div class="dz-sub">JPG, PNG, WEBP, GIF</div>
+                </div>
+                <input type="file" id="resize-input" accept="image/*" class="hidden-file" onchange="loadResizeImage(event)">
+                <div class="img-preview-wrap top-margin hidden-flex" id="resize-preview">
+                  <img id="resize-orig" alt="Original">
+                </div>
+                <div id="resize-orig-info" class="preview-info"></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-title">⚙️ Resize Settings</div>
+                <div class="img-controls">
+                  <div>
+                    <label class="label">Width (px)</label>
+                    <input class="inp" type="number" id="resize-w" placeholder="Width" min="1">
+                  </div>
+                  <div>
+                    <label class="label">Height (px)</label>
+                    <input class="inp" type="number" id="resize-h" placeholder="Height" min="1">
+                  </div>
+                </div>
+                <div class="check-row">
+                  <input type="checkbox" id="resize-lock" checked>
+                  <label for="resize-lock">Lock aspect ratio</label>
+                </div>
+                <div class="img-controls margin-top-small">
+                  <div>
+                    <label class="label">Format</label>
+                    <select class="inp" id="resize-fmt">
+                      <option value="image/jpeg">JPG</option>
+                      <option value="image/png">PNG</option>
+                      <option value="image/webp">WEBP</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="label">Quality</label>
+                    <input type="range" id="resize-quality" min="10" max="100" value="90" class="range-top">
+                    <span id="resize-quality-val" class="preview-info left-align">90%</span>
+                  </div>
+                </div>
+                <button class="btn btn-orange full-width margin-top-small" onclick="doResize()">📐 Resize & Download</button>
+                <canvas id="resize-canvas" class="hidden"></canvas>
+                <div id="resize-result" class="tool-result margin-top-small hidden"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-view" id="view-img-compress">
+          <div class="page-title">🗜️ Compress Image</div>
+          <div class="page-sub">Reduce file size of images - all processing happens in your browser</div>
+          <div class="grid2 tool-grid">
+            <div class="col">
+              <div class="card">
+                <div class="card-title">📁 Load Image</div>
+                <div class="drop-zone" onclick="qs('#compress-input').click()">
+                  <div class="dz-icon">🗜️</div>
+                  <div class="dz-text">Click to select image</div>
+                  <div class="dz-sub">JPG, PNG, WEBP</div>
+                </div>
+                <input type="file" id="compress-input" accept="image/*" class="hidden-file" onchange="loadCompressImage(event)">
+                <div class="img-preview-wrap top-margin hidden-flex" id="compress-preview">
+                  <img id="compress-orig-img" alt="">
+                </div>
+                <div id="compress-orig-info" class="preview-info"></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-title">⚙️ Compression</div>
+                <div class="slider-group margin-bottom">
+                  <label>Quality: <strong id="cq-val">75</strong>%</label>
+                  <input type="range" id="compress-quality" min="5" max="100" value="75" oninput="qs('#cq-val').textContent=this.value">
+                </div>
+                <div>
+                  <label class="label">Output Format</label>
+                  <select class="inp" id="compress-fmt">
+                    <option value="image/jpeg">JPG (best compression)</option>
+                    <option value="image/webp">WEBP (modern, smaller)</option>
+                    <option value="image/png">PNG (lossless)</option>
+                  </select>
+                </div>
+                <div id="compress-size-info" class="muted-copy"></div>
+                <button class="btn btn-orange full-width margin-top-small" onclick="doCompress()">🗜️ Compress & Download</button>
+                <canvas id="compress-canvas" class="hidden"></canvas>
+                <div id="compress-result" class="tool-result margin-top-small hidden"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-view" id="view-id-card">
+          <div class="page-title">🪪 ID Card / Aadhaar Print Layout</div>
+          <div class="page-sub">Fill in details and print a standard ID card layout</div>
+          <div class="grid2 tool-grid">
+            <div class="col">
+              <div class="card">
+                <div class="card-title">📝 Card Details</div>
+                <div class="form-stack">
+                  <div>
+                    <label class="label">Card Type / Title</label>
+                    <input class="inp" id="idc-title" value="AADHAAR CARD" placeholder="Card title">
+                  </div>
+                  <div>
+                    <label class="label">Full Name</label>
+                    <input class="inp" id="idc-name" placeholder="Name as on card">
+                  </div>
+                  <div class="grid2">
+                    <div>
+                      <label class="label">Date of Birth</label>
+                      <input class="inp" id="idc-dob" placeholder="DD/MM/YYYY">
+                    </div>
+                    <div>
+                      <label class="label">Gender</label>
+                      <select class="inp" id="idc-gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="label">ID Number (Aadhaar / PAN etc.)</label>
+                    <input class="inp" id="idc-num" placeholder="XXXX XXXX XXXX">
+                  </div>
+                  <div>
+                    <label class="label">Address</label>
+                    <textarea class="inp" id="idc-addr" rows="2" placeholder="Full address"></textarea>
+                  </div>
+                  <div>
+                    <label class="label">Photo (upload)</label>
+                    <input type="file" id="idc-photo" accept="image/*" class="inp file-input" onchange="loadIdPhoto(event)">
+                  </div>
+                  <div>
+                    <label class="label">Footer Text</label>
+                    <input class="inp" id="idc-footer" value="Government of India - Unique Identification Authority of India">
+                  </div>
+                  <button class="btn btn-orange" onclick="updateIdCard()">🔄 Update Preview</button>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-title">👁️ Preview</div>
+                <div id="id-card-render">
+                  <div class="id-card-preview">
+                    <div class="id-card-header">
+                      <div class="id-title-preview" id="idc-title-p">AADHAAR CARD</div>
+                      <div class="id-subtitle">भारत सरकार / Government of India</div>
+                    </div>
+                    <div class="id-card-body">
+                      <div class="id-photo" id="idc-photo-p">
+                        <span>Photo</span>
+                      </div>
+                      <div class="id-info">
+                        <div class="id-name" id="idc-name-p">Name</div>
+                        <div class="id-field">DOB: <strong id="idc-dob-p">—</strong></div>
+                        <div class="id-field">Gender: <strong id="idc-gender-p">—</strong></div>
+                        <div class="id-field address-gap" id="idc-addr-p"></div>
+                      </div>
+                    </div>
+                    <div class="id-number" id="idc-num-p">XXXX XXXX XXXX</div>
+                    <div class="id-footer" id="idc-footer-p">Government of India</div>
+                  </div>
+                </div>
+                <div class="btn-row">
+                  <button class="btn btn-green grow" onclick="printIdCard()">🖨️ Print Card</button>
+                  <button class="btn btn-ghost" onclick="updateIdCard()">🔄 Refresh</button>
+                </div>
+                <div class="tip-text">
+                  💡 Tip: Print two copies on A4 paper - cuts to standard credit card size.
+                  For official use, always use the original government portal.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toast-wrap"></div>
+
+  <div class="ov" id="json-ov">
+    <div class="modal modal-wide">
+      <div class="mh"><span class="mt">⚙️ Manage Service Data (JSON)</span><button class="mx" onclick="closeOv('json-ov')">✕</button></div>
+      <div class="mb">
+        <p class="modal-note">Edit raw service data. Format: each link = <code>{"name","url","desc","keywords":[]}</code></p>
+        <textarea id="json-ta" class="json-editor" spellcheck="false"></textarea>
+      </div>
+      <div class="mf wrap-gap">
+        <button class="btn btn-danger btn-sm mr-auto" onclick="resetDataConfirm()">↩ Reset</button>
+        <button class="btn btn-ghost btn-sm" onclick="importJson()">📂 Import</button>
+        <button class="btn btn-ghost" onclick="closeOv('json-ov')">Cancel</button>
+        <button class="btn btn-green" onclick="saveJson()">💾 Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ov" id="del-ov">
+    <div class="modal modal-small">
+      <div class="mh"><span class="mt text-err">⚠️ Confirm</span><button class="mx" onclick="closeOv('del-ov')">✕</button></div>
+      <div class="mb"><p id="del-msg" class="del-text"></p></div>
+      <div class="mf">
+        <button class="btn btn-ghost" onclick="closeOv('del-ov')">Cancel</button>
+        <button class="btn btn-danger" id="del-confirm-btn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ov" id="service-editor-ov">
+    <div class="modal modal-wide">
+      <div class="mh">
+        <span class="mt" id="service-editor-title">Edit Service</span>
+        <button class="mx" onclick="closeOv('service-editor-ov')">✕</button>
+      </div>
+      <div class="mb service-editor-body">
+        <div class="service-editor-group" id="service-editor-location-wrap">
+          <label class="label">Location</label>
+          <div class="service-editor-location" id="service-editor-location"></div>
+        </div>
+        <div id="service-editor-category-fields">
+          <div class="service-editor-group">
+            <label class="label">Category Name</label>
+            <input class="inp" id="service-editor-category-name" placeholder="e.g. Government Services" maxlength="80">
+          </div>
+          <div class="grid2">
+            <div class="service-editor-group">
+              <label class="label">Icon</label>
+              <input class="inp" id="service-editor-category-icon" placeholder="🏛️" maxlength="8">
+            </div>
+            <div class="service-editor-group">
+              <label class="label">Colour</label>
+              <input class="inp" id="service-editor-category-color" type="color" value="#3b82f6">
+            </div>
+          </div>
+        </div>
+        <div id="service-editor-subcategory-fields">
+          <div class="service-editor-group">
+            <label class="label">Subcategory Name</label>
+            <input class="inp" id="service-editor-subcategory-name" placeholder="e.g. Aadhaar Services" maxlength="80">
+          </div>
+        </div>
+        <div id="service-editor-link-fields">
+          <div class="service-editor-group">
+            <label class="label">Place Link Under</label>
+            <select class="inp" id="service-editor-link-subcategory"></select>
+          </div>
+          <div class="service-editor-group">
+            <label class="label">Link Name</label>
+            <input class="inp" id="service-editor-link-name" placeholder="e.g. Pay Bill" maxlength="100">
+          </div>
+          <div class="service-editor-group">
+            <label class="label">URL</label>
+            <input class="inp" id="service-editor-link-url" placeholder="https://example.gov.in/">
+          </div>
+          <div class="service-editor-group">
+            <label class="label">Description</label>
+            <textarea class="inp service-editor-textarea" id="service-editor-link-desc" rows="3" placeholder="Short help text for staff and customers"></textarea>
+          </div>
+          <div class="service-editor-group">
+            <label class="label">Keywords</label>
+            <input class="inp" id="service-editor-link-keywords" placeholder="comma, separated, search, words">
+          </div>
+        </div>
+      </div>
+      <div class="mf">
+        <button class="btn btn-ghost" onclick="closeOv('service-editor-ov')">Cancel</button>
+        <button class="btn btn-green" onclick="saveServiceEditor()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/ui-fixes.js"></script>
+  <script src="js/services-editor.js"></script>
+</body>
+</html>
