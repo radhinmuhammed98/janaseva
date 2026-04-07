@@ -120,6 +120,7 @@ function renderCategoryChips() {
   const summaries = categorySummaries();
   wrap.innerHTML = summaries.map(summary => `
     <button class="service-chip ${activeCategoryKey === summary.category ? "active" : ""}" onclick="${summary.isDirectCategory ? `openServiceLink('${escapeJs(summary.directLinks[0].url)}','${escapeJs(summary.directLinks[0].name)}','${escapeJs(summary.category)}','')` : `focusCategory('${escapeJs(summary.category)}')`}">
+      ${summary.icon ? `<span>${escapeHtml(summary.icon)}</span>` : ""}
       <span class="service-chip-dot" style="background:${summary.color}"></span>
       <span>${escapeHtml(summary.category)}</span>
     </button>
@@ -214,7 +215,7 @@ function renderCategoryCards() {
         <div class="category-card-head">
           <button class="category-toggle" onclick="${summary.isDirectCategory ? `openServiceLink('${escapeJs(directCategoryLink.url)}','${escapeJs(directCategoryLink.name)}','${escapeJs(summary.category)}','')` : `focusCategory('${escapeJs(summary.category)}')`}">
             <div class="category-card-head">
-              <div class="category-icon" style="background:${summary.color}"></div>
+              <div class="category-icon" style="background:${summary.color}">${summary.icon ? escapeHtml(summary.icon) : ""}</div>
               <div class="category-head-copy">
                 <div class="category-name">${escapeHtml(summary.category)}</div>
                 <div class="category-meta">${summary.isDirectCategory ? escapeHtml(directCategoryLink.desc || "Direct category link") : `${summary.subcategoryCount} subcategories · ${summary.linkCount} links`}</div>
