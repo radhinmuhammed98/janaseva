@@ -46,12 +46,13 @@ const DEFAULT_DATA =
         "url": "https://myaadhaar.uidai.gov.in/",
         "desc": "Update name, address, DOB, mobile in Aadhaar",
         "keywords": [
-          "aadhaar status",
-          "adhar validity",
-          "validity",
-          "urn",
-          "enrolment number",
-          "track aadhaar"
+          "aadhaar update",
+          "adhar",
+          "uid",
+          "biometric",
+          "address change",
+          "name correction",
+          "uidai"
         ]
       },
     ]
