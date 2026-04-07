@@ -2,10 +2,80 @@ const LOGO_DATA_URL = "";
 
 const DEFAULT_DATA = 
 {
+  "Aadhaar": {
+    "_icon": "",
+    "_color": "#3b82f6",
+    "_links": [
+      {
+        "name": "Order PVC Aadhar Card",
+        "url": "https://myaadhaar.uidai.gov.in/",
+        "desc": "Order for a PVC Aadhar card",
+        "keywords": [
+          "PVC adhaar",
+          "seva kendra",
+          "centre booking",
+          "enroll"
+        ]
+      },
+      {
+        "name": "Download Aadhaar",
+        "url": "https://myaadhaar.uidai.gov.in/genricDownloadAadhaar",
+        "desc": "Download e-Aadhaar PDF",
+        "keywords": [
+          "download aadhaar",
+          "eaadhaar",
+          "print aadhaar",
+          "adhar download"
+        ]
+      },
+      {
+        "name": "Check Aadhaar Validity",
+        "url": "https://myaadhaar.uidai.gov.in/check-aadhaar-validity/en",
+        "desc": "Check the validity of Aadhar",
+        "keywords": [
+          "aadhaar status",
+          "adhar validity",
+          "validity",
+          "urn",
+          "enrolment number",
+          "track aadhaar"
+        ]
+      }
+    ]
+  },
+  "PASSPORT": {
+    "_icon": "",
+    "_color": "#3b82f6",
+    "_links": [
+      {
+        "name": "New/Reissue PASSPORT",
+        "url": "https://www.passportindia.gov.in/psp/Apply",
+        "desc": "Renew or Reissue Passport",
+        "keywords": [
+          "renew",
+          "reissue",
+          "passport"
+        ]
+      }
+    ]
+  },
   "PAN Card": {
     "_icon": "",
     "_color": "#003180",
-    "_links": [],
+    "_links": [
+      {
+        "name": "Link PAN–Aadhaar/Status",
+        "url": "https://eportal.incometax.gov.in/iec/foservices/#/pre-login/bl-link-aadhaar-landing",
+        "desc": "Link PAN card with Aadhaar number or View status of pan card whether its linked or not",
+        "keywords": [
+          "link pan aadhaar",
+          "pan link",
+          "aadhaar pan link",
+          "income tax portal",
+          "status of pan card"
+        ]
+      }
+    ],
     "PAN NSDL": [
       {
         "name": "New PAN – NSDL",
@@ -29,6 +99,18 @@ const DEFAULT_DATA =
           "pan update",
           "pan change",
           "nsdl correction"
+        ]
+      },
+      {
+        "name": "PAN Reprint - NSDL",
+        "url": "https://onlineservices.proteantech.in/paam/ReprintEPan.html",
+        "desc": "Reprint PAN Card through UTIITSL",
+        "keywords": [
+          "reprint",
+          "pan card",
+          "reprint pan",
+          "pan",
+          "card"
         ]
       }
     ],
@@ -122,77 +204,6 @@ const DEFAULT_DATA =
         ]
       }
     ],
-    "PAN Card": [
-      {
-        "name": "New PAN – NSDL",
-        "url": "https://onlineservices.proteantech.in/paam/endUserRegisterContact.html",
-        "desc": "Apply for fresh PAN card via NSDL (Form 49A)",
-        "keywords": [
-          "new pan",
-          "fresh pan",
-          "pan apply",
-          "nsdl pan",
-          "income tax id",
-          "form 49a"
-        ]
-      },
-      {
-        "name": "PAN Correction – NSDL",
-        "url": "https://onlineservices.proteantech.in/paam/endUserRegisterContact.html",
-        "desc": "Correct name, DOB, photo on PAN via NSDL",
-        "keywords": [
-          "pan correction",
-          "pan update",
-          "pan change",
-          "nsdl correction"
-        ]
-      },
-      {
-        "name": "New PAN – UTIITSL",
-        "url": "https://www.pan.utiitsl.com/PAN/newA.html",
-        "desc": "Apply for PAN card via UTI portal (alternate)",
-        "keywords": [
-          "pan uti",
-          "utiitsl pan",
-          "pan card uti",
-          "alternate pan"
-        ]
-      },
-      {
-        "name": "PAN Correction – UTIITSL",
-        "url": "https://www.pan.utiitsl.com/csf.html",
-        "desc": "Correct PAN details through UTI portal",
-        "keywords": [
-          "pan correction uti",
-          "uti correction",
-          "pan name fix"
-        ]
-      },
-      {
-        "name": "Link PAN–Aadhaar/Status",
-        "url": "https://eportal.incometax.gov.in/iec/foservices/#/pre-login/bl-link-aadhaar-landing",
-        "desc": "Link PAN card with Aadhaar number or View status of pan card whether its linked or not",
-        "keywords": [
-          "link pan aadhaar",
-          "pan link",
-          "aadhaar pan link",
-          "income tax portal",
-          "status of pan card"
-        ]
-      },
-      {
-        "name": "Instant e-PAN",
-        "url": "https://eportal.incometax.gov.in/iec/foservices/#/pre-login/instant-e-pan",
-        "desc": "Get free e-PAN instantly using Aadhaar (for new applicants)",
-        "keywords": [
-          "epan",
-          "instant pan",
-          "free pan",
-          "paperless pan",
-          "aadhaar based pan"
-        ]
-      }
-    ],
     "Voter ID": [
       {
         "name": "New Voter Registration",
@@ -249,65 +260,7 @@ const DEFAULT_DATA =
           "where to vote"
         ]
       }
-    ],
-    "Passport": [
-      {
-        "name": "Apply Fresh Passport",
-        "url": "https://www.passportindia.gov.in/psp/Apply",
-        "desc": "Register and apply for a new passport",
-        "keywords": [
-          "passport apply",
-          "new passport",
-          "fresh passport",
-          "travel document"
-        ]
-      },
-      {
-        "name": "Renew Passport",
-        "url": "https://www.passportindia.gov.in/psp/Apply",
-        "desc": "Renew expiring or expired passport",
-        "keywords": [
-          "passport renew",
-          "renew passport",
-          "expired passport",
-          "passport renewal"
-        ]
-      },
-      {
-        "name": "Passport Correction",
-        "url": "https://www.passportindia.gov.in/psp/Apply",
-        "desc": "Correct name, DOB or address in passport",
-        "keywords": [
-          "passport correction",
-          "passport name change",
-          "passport update",
-          "passport reissue"
-        ]
-      },
-      {
-        "name": "Passport Appointment Availability",
-        "url": "https://www.passportindia.gov.in/psp/checkAppointmentAvailibility",
-        "desc": "check Passport appointment availability Seva Kendra or PSK",
-        "keywords": [
-          "passport appointment",
-          "psk appointment",
-          "passport seva",
-          "book passport slot"
-        ]
-      },
-      {
-        "name": "Track Passport Status",
-        "url": "https://www.passportindia.gov.in/psp/trackApplicationService",
-        "desc": "Track passport application and dispatch status",
-        "keywords": [
-          "passport status",
-          "track passport",
-          "file number",
-          "passport dispatch"
-        ]
-      }
-    ],
-    "PAN (UTITSL)": []
+    ]
   },
   "eDistrict Kerala": {
     "_icon": "🏛️",
