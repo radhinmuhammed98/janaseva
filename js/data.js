@@ -40,7 +40,20 @@ const DEFAULT_DATA =
           "enrolment number",
           "track aadhaar"
         ]
-      }
+      },
+      {
+        "name": "Update Aadhaar",
+        "url": "https://myaadhaar.uidai.gov.in/",
+        "desc": "Update name, address, DOB, mobile in Aadhaar",
+        "keywords": [
+          "aadhaar status",
+          "adhar validity",
+          "validity",
+          "urn",
+          "enrolment number",
+          "track aadhaar"
+        ]
+      },
     ]
   },
   "PASSPORT": {
