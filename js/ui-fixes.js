@@ -75,6 +75,7 @@ function fixSidebarLabels() {
   const mapping = {
     services: ['🌐', 'Services'],
     billing: ['🧾', 'Billing'],
+    income: ['💰', 'Daily Income'],
     'pdf-merge': ['📄', 'Merge PDF'],
     'img-to-pdf': ['🖼️', 'Image → PDF'],
     'img-resize': ['📐', 'Resize Image'],
