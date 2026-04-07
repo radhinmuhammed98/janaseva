@@ -54,7 +54,7 @@ const DEFAULT_DATA =
           "name correction",
           "uidai"
         ]
-      },
+      }
     ]
   },
   "PASSPORT": {
@@ -164,6 +164,94 @@ const DEFAULT_DATA =
       }
     ]
   },
+     "Payments": {
+    "_icon": "P",
+    "_color": "#3b82f6",
+    "_links": [
+      {
+        "name": "Pay Land-Tax",
+        "url": "https://revenue.kerala.gov.in/",
+        "desc": "Pay land tax / property revenue to Village Office",
+        "keywords": [
+          "land tax",
+          "bhoomi tax",
+          "property tax land",
+          "village office tax",
+          "revenue",
+          "bhumi"
+        ]
+      },
+      {
+        "name": "Pay Property Tax",
+        "url": "https://ksmart.lsgkerala.gov.in/ui/property-tax/quick-pay-tax/citizen",
+        "desc": "Pay building property tax to Gram Panchayat",
+        "keywords": [
+          "property tax",
+          "building tax",
+          "panchayat tax",
+          "house tax",
+          "lsg"
+        ]
+      },
+      {
+        "name": "KSEB Bill",
+        "url": "https://wss.kseb.in/selfservices/quickpay",
+        "desc": "Pay KSEB bill without login using consumer number",
+        "keywords": [
+          "kseb quick pay",
+          "quick electricity pay",
+          "consumer number pay"
+        ]
+      },
+      {
+        "name": "e-Challan",
+        "url": "hh",
+        "desc": "uhyh",
+        "keywords": []
+      },
+      {
+        "name": "Vehicle Tax",
+        "url": "https://vahan.parivahan.gov.in/vahanservice/vahan/ui/statevalidation/homepage.xhtml?",
+        "desc": "Every services related with vehicle RC,Tax payment",
+        "keywords": [
+          "Tax",
+          "Veh TAX"
+        ]
+      },
+      {
+        "name": "വാഹന ക്ഷേമനിധി",
+        "url": "fff",
+        "desc": "fff",
+        "keywords": [
+          "fff"
+        ]
+      },
+      {
+        "name": "ജലനിധി (Water Bill)",
+        "url": "https://www.smpay.in/login.php",
+        "desc": "Pay  water bill",
+        "keywords": [
+          "water bill",
+          "water authority",
+          "water payment",
+          "kerala water",
+          "smpay"
+        ]
+      },
+      {
+        "name": "പ്രവാസി ക്ഷേമനിധി",
+        "url": "https://register.pravasikerala.org/public/index.php/online/quick_pay",
+        "desc": "Quick Payment for Pravasi Welfare",
+        "keywords": [
+          "pravasi",
+          "welfare",
+          "kshemanidhi",
+          "pay",
+          "quickpay"
+        ]
+      }
+    ]
+  },
   "Government ID Services": {
     "_icon": "🪪",
     "_color": "#1a56db",
@@ -228,126 +316,6 @@ const DEFAULT_DATA =
   "eDistrict Kerala": {
     "_icon": "🏛️",
     "_color": "#059669",
-    "Income & Community": [
-      {
-        "name": "Income Certificate",
-        "url": "https://edistrict.kerala.gov.in/",
-        "desc": "Apply for annual income certificate from Tahsildar",
-        "keywords": [
-          "income certificate",
-          "income proof",
-          "tahsildar income",
-          "annual income"
-        ]
-      },
-      {
-        "name": "Community Certificate",
-        "url": "https://edistrict.kerala.gov.in/",
-        "desc": "Caste/Community certificate for OBC, SC, ST",
-        "keywords": [
-          "community certificate",
-          "caste certificate",
-          "obc certificate",
-          "sc st certificate",
-          "jati surekshanam"
-        ]
-      },
-      {
-        "name": "Non-Creamy Layer Certificate",
-        "url": "https://edistrict.kerala.gov.in/",
-        "desc": "Non-creamy layer OBC certificate for reservations",
-        "keywords": [
-          "non creamy layer",
-          "ncl certificate",
-          "obc ncl",
-          "creamy layer",
-          "noncreamy"
-        ]
-      }
-    ],
-    "Residence & Land": [
-      {
-        "name": "Residence Certificate",
-        "url": "https://edistrict.kerala.gov.in/",
-        "desc": "Proof of residential address from Village Office",
-        "desc2": "Also called Domicile Certificate",
-        "keywords": [
-          "residence certificate",
-          "address proof",
-          "domicile",
-          "living proof",
-          "residential"
-        ]
-      },
-      {
-        "name": "Possession Certificate",
-        "url": "https://edistrict.kerala.gov.in/",
-        "desc": "Proof of land possession from Village Office",
-        "keywords": [
-          "possession certificate",
-          "land possession",
-          "property possession",
-          "pokkuvaravu"
-        ]
-      },
-      {
-        "name": "Nativity Certificate",
-        "url": "https://edistrict.kerala.gov.in/",
-        "desc": "Certificate of origin / native place in Kerala",
-        "keywords": [
-          "nativity certificate",
-          "native place",
-          "origin certificate",
-          "born kerala"
-        ]
-      },
-      {
-        "name": "No Dues Certificate",
-        "url": "https://edistrict.kerala.gov.in/",
-        "desc": "Certificate confirming no government dues pending",
-        "keywords": [
-          "no dues",
-          "dues certificate",
-          "clearance certificate",
-          "noc"
-        ]
-      }
-    ],
-    "Education & Other": [
-      {
-        "name": "Solvency Certificate",
-        "url": "https://edistrict.kerala.gov.in/",
-        "desc": "Financial solvency proof for tenders and contracts",
-        "keywords": [
-          "solvency certificate",
-          "financial certificate",
-          "solvency proof",
-          "tender certificate"
-        ]
-      },
-      {
-        "name": "Life Certificate",
-        "url": "https://edistrict.kerala.gov.in/",
-        "desc": "Jeevan Pramaan / life certificate for pensioners",
-        "keywords": [
-          "life certificate",
-          "jeevan pramaan",
-          "pension certificate",
-          "alive certificate"
-        ]
-      },
-      {
-        "name": "Check Application Status",
-        "url": "https://edistrict.kerala.gov.in/",
-        "desc": "Track status of any eDistrict application",
-        "keywords": [
-          "application status",
-          "track application",
-          "edistrict status",
-          "certificate status"
-        ]
-      }
-    ],
     "_links": [
       {
         "name": "Open eDistrict Kerala",
