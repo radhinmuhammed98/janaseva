@@ -164,7 +164,71 @@ const DEFAULT_DATA =
       }
     ]
   },
-     "Payments": {
+  "ID-Cards": {
+    "_icon": "",
+    "_color": "#3b82f6",
+    "_links": [
+      {
+        "name": "ABHA Card",
+        "url": "https://abha.abdm.gov.in/abha/v3/register",
+        "desc": "Create ABHA Card",
+        "keywords": [
+          "ABHA",
+          "ABHA CARD",
+          "card",
+          "cards"
+        ]
+      },
+      {
+        "name": "e-SHRAM Card",
+        "url": "https://register.eshram.gov.in/#/user/self",
+        "desc": "Register Eshram card",
+        "keywords": [
+          "card",
+          "e shram",
+          "eshram",
+          "cards"
+        ]
+      },
+      {
+        "name": "UHID Card",
+        "url": "https://ehealth.kerala.gov.in/portal/",
+        "desc": "Registration for UHID Card",
+        "keywords": [
+          "UHID",
+          "Cards",
+          "card"
+        ]
+      },
+      {
+        "name": "Voter ID",
+        "url": "https://voters.eci.gov.in/",
+        "desc": "Voter ID services",
+        "keywords": [
+          "voter",
+          "vote",
+          "card"
+        ]
+      }
+    ]
+  },
+  "UDYAM/MSME": {
+    "_icon": "",
+    "_color": "#3b82f6",
+    "_links": [
+      {
+        "name": "UDYAM Registration",
+        "url": "https://www.udyamregistration.gov.in/UdyamRegistration.aspx",
+        "desc": "Registration for Udyam/MSME",
+        "keywords": [
+          "MSME",
+          "Udyam",
+          "card"
+        ]
+      }
+    ]
+  },
+  "Payments": {
     "_icon": "P",
     "_color": "#3b82f6",
     "_links": [
@@ -248,67 +312,6 @@ const DEFAULT_DATA =
           "kshemanidhi",
           "pay",
           "quickpay"
-        ]
-      }
-    ]
-  },
-  "Government ID Services": {
-    "_icon": "🪪",
-    "_color": "#1a56db",
-    "Voter ID": [
-      {
-        "name": "New Voter Registration",
-        "url": "https://voters.eci.gov.in/",
-        "desc": "Register as new voter – Form 6",
-        "keywords": [
-          "voter id",
-          "new voter",
-          "election card",
-          "form 6",
-          "eci register",
-          "epic"
-        ]
-      },
-      {
-        "name": "Download e-EPIC",
-        "url": "https://voters.eci.gov.in/",
-        "desc": "Download digital voter ID card",
-        "keywords": [
-          "download voter id",
-          "epic download",
-          "digital voter card"
-        ]
-      },
-      {
-        "name": "Voter Details Correction",
-        "url": "https://voters.eci.gov.in/",
-        "desc": "Correct name, address, photo on voter card – Form 8",
-        "keywords": [
-          "voter correction",
-          "form 8",
-          "voter update",
-          "address change voter"
-        ]
-      },
-      {
-        "name": "Search Voter in List",
-        "url": "https://electoralsearch.eci.gov.in/",
-        "desc": "Search electoral roll by name or EPIC number",
-        "keywords": [
-          "voter search",
-          "electoral roll",
-          "election list",
-          "voter name search"
-        ]
-      },
-      {
-        "name": "Know Your Polling Booth",
-        "url": "https://electoralsearch.eci.gov.in/",
-        "desc": "Find your assigned polling station",
-        "keywords": [
-          "polling booth",
-          "polling station",
-          "where to vote"
         ]
       }
     ]
