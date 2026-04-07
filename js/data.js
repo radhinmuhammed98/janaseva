@@ -1,7 +1,147 @@
 const LOGO_DATA_URL = "";
 
-const DEFAULT_DATA = 
-{
+const DEFAULT_DATA = {
+  "eDistrict Kerala": {
+    "_icon": "🏛️",
+    "_color": "#059669",
+    "_links": [
+      {
+        "name": "Open eDistrict Kerala",
+        "url": "https://edistrict.kerala.gov.in/",
+        "desc": "Open the main eDistrict Kerala portal directly.",
+        "keywords": [
+          "edistrict",
+          "kerala edistrict",
+          "main portal",
+          "certificate portal"
+        ]
+      }
+    ]
+  },
+ "Payments": {
+    "_icon": "P",
+    "_color": "#3b82f6",
+    "_links": [
+      {
+        "name": "Pay Land-Tax",
+        "url": "https://revenue.kerala.gov.in/",
+        "desc": "Pay land tax / property revenue to Village Office",
+        "keywords": [
+          "land tax",
+          "bhoomi tax",
+          "property tax land",
+          "village office tax",
+          "revenue",
+          "bhumi"
+        ]
+      },
+      {
+        "name": "Pay Property Tax",
+        "url": "https://ksmart.lsgkerala.gov.in/ui/property-tax/quick-pay-tax/citizen",
+        "desc": "Pay building property tax to Gram Panchayat",
+        "keywords": [
+          "property tax",
+          "building tax",
+          "panchayat tax",
+          "house tax",
+          "lsg"
+        ]
+      },
+      {
+        "name": "KSEB Bill",
+        "url": "https://wss.kseb.in/selfservices/quickpay",
+        "desc": "Pay KSEB bill without login using consumer number",
+        "keywords": [
+          "kseb quick pay",
+          "quick electricity pay",
+          "consumer number pay"
+        ]
+      },
+      {
+        "name": "e-Challan",
+        "url": "hh",
+        "desc": "uhyh",
+        "keywords": []
+      },
+      {
+        "name": "Vehicle Tax",
+        "url": "https://vahan.parivahan.gov.in/vahanservice/vahan/ui/statevalidation/homepage.xhtml?",
+        "desc": "Every services related with vehicle RC,Tax payment",
+        "keywords": [
+          "Tax",
+          "Veh TAX"
+        ]
+      },
+      {
+        "name": "വാഹന ക്ഷേമനിധി",
+        "url": "fff",
+        "desc": "fff",
+        "keywords": [
+          "fff"
+        ]
+      },
+      {
+        "name": "ജലനിധി (Water Bill)",
+        "url": "https://www.smpay.in/login.php",
+        "desc": "Pay  water bill",
+        "keywords": [
+          "water bill",
+          "water authority",
+          "water payment",
+          "kerala water",
+          "smpay"
+        ]
+      },
+      {
+        "name": "പ്രവാസി ക്ഷേമനിധി",
+        "url": "https://register.pravasikerala.org/public/index.php/online/quick_pay",
+        "desc": "Quick Payment for Pravasi Welfare",
+        "keywords": [
+          "pravasi",
+          "welfare",
+          "kshemanidhi",
+          "pay",
+          "quickpay"
+        ]
+      }
+    ]
+  },
+  "KSEB": {
+    "_icon": "",
+    "_color": "#00235c",
+    "_links": [
+      {
+        "name": "KSEB SELF CARE",
+        "url": "https://wss.kseb.in/selfservices/wssloginUser.do",
+        "desc": "KSEB SERVICES",
+        "keywords": []
+      }
+    ]
+  },
+  "Ration Card Services": {
+    "_icon": "🌾",
+    "_color": "#dc2626",
+    "_links": [
+      {
+        "name": "Ration card",
+        "url": "https://ecitizen.civilsupplieskerala.gov.in/index.php/c_login",
+        "desc": "ration card services",
+        "keywords": []
+      }
+    ]
+  },
+  "കുടിക്കടം (Encumbrance)": {
+    "_icon": "",
+    "_color": "#3b82f6",
+    "_links": [
+      {
+        "name": "Encumbrance Certificate",
+        "url": "https://pearl.registration.kerala.gov.in/index.php",
+        "desc": "Registration Dept",
+        "keywords": []
+      }
+    ]
+  },
   "Aadhaar": {
     "_icon": "c",
     "_color": "#3b82f6",
@@ -209,6 +349,12 @@ const DEFAULT_DATA =
           "vote",
           "card"
         ]
+      },
+      {
+        "name": "NORKA ID-CARD",
+        "url": "https://sso.norkaroots.kerala.gov.in/register?ref=main&client_id=9b20fcf0-795d-49dc-b1b4-db361489112b",
+        "desc": "Register new account in NORKA",
+        "keywords": []
       }
     ]
   },
@@ -228,111 +374,7 @@ const DEFAULT_DATA =
       }
     ]
   },
-  "Payments": {
-    "_icon": "P",
-    "_color": "#3b82f6",
-    "_links": [
-      {
-        "name": "Pay Land-Tax",
-        "url": "https://revenue.kerala.gov.in/",
-        "desc": "Pay land tax / property revenue to Village Office",
-        "keywords": [
-          "land tax",
-          "bhoomi tax",
-          "property tax land",
-          "village office tax",
-          "revenue",
-          "bhumi"
-        ]
-      },
-      {
-        "name": "Pay Property Tax",
-        "url": "https://ksmart.lsgkerala.gov.in/ui/property-tax/quick-pay-tax/citizen",
-        "desc": "Pay building property tax to Gram Panchayat",
-        "keywords": [
-          "property tax",
-          "building tax",
-          "panchayat tax",
-          "house tax",
-          "lsg"
-        ]
-      },
-      {
-        "name": "KSEB Bill",
-        "url": "https://wss.kseb.in/selfservices/quickpay",
-        "desc": "Pay KSEB bill without login using consumer number",
-        "keywords": [
-          "kseb quick pay",
-          "quick electricity pay",
-          "consumer number pay"
-        ]
-      },
-      {
-        "name": "e-Challan",
-        "url": "hh",
-        "desc": "uhyh",
-        "keywords": []
-      },
-      {
-        "name": "Vehicle Tax",
-        "url": "https://vahan.parivahan.gov.in/vahanservice/vahan/ui/statevalidation/homepage.xhtml?",
-        "desc": "Every services related with vehicle RC,Tax payment",
-        "keywords": [
-          "Tax",
-          "Veh TAX"
-        ]
-      },
-      {
-        "name": "വാഹന ക്ഷേമനിധി",
-        "url": "fff",
-        "desc": "fff",
-        "keywords": [
-          "fff"
-        ]
-      },
-      {
-        "name": "ജലനിധി (Water Bill)",
-        "url": "https://www.smpay.in/login.php",
-        "desc": "Pay  water bill",
-        "keywords": [
-          "water bill",
-          "water authority",
-          "water payment",
-          "kerala water",
-          "smpay"
-        ]
-      },
-      {
-        "name": "പ്രവാസി ക്ഷേമനിധി",
-        "url": "https://register.pravasikerala.org/public/index.php/online/quick_pay",
-        "desc": "Quick Payment for Pravasi Welfare",
-        "keywords": [
-          "pravasi",
-          "welfare",
-          "kshemanidhi",
-          "pay",
-          "quickpay"
-        ]
-      }
-    ]
-  },
-  "eDistrict Kerala": {
-    "_icon": "🏛️",
-    "_color": "#059669",
-    "_links": [
-      {
-        "name": "Open eDistrict Kerala",
-        "url": "https://edistrict.kerala.gov.in/",
-        "desc": "Open the main eDistrict Kerala portal directly.",
-        "keywords": [
-          "edistrict",
-          "kerala edistrict",
-          "main portal",
-          "certificate portal"
-        ]
-      }
-    ]
-  },
+
   "Taxes & Revenue": {
     "_icon": "🏠",
     "_color": "#7c3aed",
@@ -425,26 +467,6 @@ const DEFAULT_DATA =
       }
     ]
   },
-  "Ration Card": {
-    "_icon": "🌾",
-    "_color": "#dc2626",
-    "Apply & Modify": [
-      {
-        "name": "Ration Card Services",
-        "url": "https://ecitizen.civilsupplieskerala.gov.in/index.php/c_login",
-        "desc": "Every services related with ration card",
-        "keywords": [
-          "new ration card",
-          "ration apply",
-          "civil supplies",
-          "bpl card",
-          "apl card",
-          "phh card",
-          "food card"
-        ]
-      }
-    ]
-  },
   "Health Services": {
     "_icon": "🏥",
     "_color": "#db2777",
@@ -496,75 +518,6 @@ const DEFAULT_DATA =
           "telemedicine",
           "online opd",
           "video doctor"
-        ]
-      }
-    ]
-  },
-  "Bill Payments": {
-    "_icon": "💡",
-    "_color": "#0891b2",
-    "Electricity": [
-      {
-        "name": "KSEB Quick Pay",
-        "url": "https://wss.kseb.in/selfservices/quickpay",
-        "desc": "Pay KSEB bill without login using consumer number",
-        "keywords": [
-          "kseb quick pay",
-          "quick electricity pay",
-          "consumer number pay"
-        ]
-      },
-      {
-        "name": "KSEB Related other services",
-        "url": "https://wss.kseb.in/selfservices/",
-        "desc": "Apply for new electricity connection",
-        "keywords": [
-          "new electricity",
-          "new connection",
-          "kseb connection",
-          "electricity apply"
-        ]
-      }
-    ],
-    "Water": [
-      {
-        "name": "JALA-NIDHI (Water Bill)",
-        "url": "https://www.smpay.in/login.php",
-        "desc": "Pay  water bill",
-        "keywords": [
-          "water bill",
-          "water authority",
-          "water payment",
-          "kerala water",
-          "smpay"
-        ]
-      }
-    ],
-    "Gas": [
-      {
-        "name": "Book LPG Cylinder",
-        "url": "https://www.mylpg.in/",
-        "desc": "Book refill for Indane, HP, Bharat gas",
-        "keywords": [
-          "lpg book",
-          "gas cylinder",
-          "cooking gas",
-          "refill gas",
-          "indane",
-          "hp gas",
-          "bharat gas"
-        ]
-      },
-      {
-        "name": "Check Subsidy Status",
-        "url": "https://www.mylpg.in/",
-        "desc": "Check LPG subsidy and PAHAL status",
-        "keywords": [
-          "lpg subsidy",
-          "gas subsidy",
-          "pahal",
-          "dbtl",
-          "gas subsidy status"
         ]
       }
     ]
