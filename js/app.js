@@ -47,7 +47,7 @@ function boot() {
 function loadLogo() {
   if (!LOGO_DATA_URL) return;
   const img = document.getElementById("logo-img");
-  img.src = logo.jpeg;
+  img.src = LOGO_DATA_URL;
   img.style.display = "block";
 }
 
