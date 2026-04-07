@@ -3,7 +3,7 @@ const LOGO_DATA_URL = "";
 const DEFAULT_DATA = 
 {
   "Aadhaar": {
-    "_icon": "",
+    "_icon": "c",
     "_color": "#3b82f6",
     "_links": [
       {
