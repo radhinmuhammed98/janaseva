@@ -167,57 +167,6 @@ const DEFAULT_DATA =
   "Government ID Services": {
     "_icon": "🪪",
     "_color": "#1a56db",
-    "Aadhaar": [
-      {
-        "name": "Update Aadhaar",
-        "url": "https://myaadhaar.uidai.gov.in/",
-        "desc": "Update name, address, DOB, mobile in Aadhaar",
-        "keywords": [
-          "aadhaar update",
-          "adhar",
-          "uid",
-          "biometric",
-          "address change",
-          "name correction",
-          "uidai"
-        ]
-      },
-      {
-        "name": "Download Aadhaar",
-        "url": "https://myaadhaar.uidai.gov.in/genricDownloadAadhaar",
-        "desc": "Download e-Aadhaar PDF",
-        "keywords": [
-          "download aadhaar",
-          "eaadhaar",
-          "print aadhaar",
-          "adhar download"
-        ]
-      },
-      {
-        "name": "Check Aadhaar Validity",
-        "url": "https://myaadhaar.uidai.gov.in/check-aadhaar-validity/en",
-        "desc": "Check the validity of Aadhar",
-        "keywords": [
-          "aadhaar status",
-          "adhar validity",
-          "validity",
-          "urn",
-          "enrolment number",
-          "track aadhaar"
-        ]
-      },
-      {
-        "name": "Order PVC Aadhar Card",
-        "url": "https://myaadhaar.uidai.gov.in/",
-        "desc": "Order for a PVC Aadhar card",
-        "keywords": [
-          "PVC adhaar",
-          "seva kendra",
-          "centre booking",
-          "enroll"
-        ]
-      }
-    ],
     "Voter ID": [
       {
         "name": "New Voter Registration",
