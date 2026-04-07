@@ -1,4 +1,4 @@
-const LOGO_DATA_URL = "";
+const LOGO_DATA_URL = "logo.jpeg";
 
 const DEFAULT_DATA = {
   "eDistrict Kerala": {
