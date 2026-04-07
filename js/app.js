@@ -47,7 +47,7 @@ function boot() {
 function loadLogo() {
   if (!LOGO_DATA_URL) return;
   const img = document.getElementById("logo-img");
-  img.src = LOGO_DATA_URL;
+  img.src = logo.jpeg;
   img.style.display = "block";
 }
 
@@ -347,7 +347,7 @@ function printReceipt() {
   const gst = parseFloat(qs("#bill-gst").value) || 0;
   const grand = subtotal + subtotal * (gst / 100);
   const rows = billItems.map(item => `<tr><td>${item.name}</td><td style="text-align:center">${item.qty}</td><td style="text-align:right">?${item.price.toFixed(2)}</td><td style="text-align:right"><b>?${(item.qty * item.price).toFixed(2)}</b></td></tr>`).join("");
-  win.document.write(`<!DOCTYPE html><html><head><title>Bill</title><style>body{font-family:Arial,sans-serif;max-width:400px;margin:20px auto;font-size:13px}h2,h3{text-align:center;margin:4px 0}table{width:100%;border-collapse:collapse}th,td{padding:5px 8px;border-bottom:1px solid #ddd}th{background:#f5f5f5}.total-row td{font-size:15px;font-weight:bold;border-top:2px solid #333}.grand td{font-size:18px;color:#1a5c2e;border-top:3px double #333}.footer{text-align:center;margin-top:16px;font-size:11px;color:#666}@media print{button{display:none}}</style></head><body><h2>JANASEVA KENDRAM</h2><h3 style="font-weight:400;color:#666">Thennala Westbazar · 9847816928</h3><hr><p>Bill: ${qs("#bill-no").value || `BILL-${billCounter}`} &nbsp;&nbsp; Date: ${new Date().toLocaleDateString("en-IN")}</p><p>Customer: ${qs("#bill-cust").value || "—"}</p><table><thead><tr><th>Item</th><th>Qty</th><th>Price</th><th>Total</th></tr></thead><tbody>${rows}</tbody></table><table style="margin-top:8px"><tr class="total-row"><td colspan="3">Subtotal</td><td style="text-align:right">?${subtotal.toFixed(2)}</td></tr>${gst > 0 ? `<tr><td colspan="3">GST (${gst}%)</td><td style="text-align:right">?${(subtotal * gst / 100).toFixed(2)}</td></tr>` : ""}<tr class="grand"><td colspan="3"><b>TOTAL</b></td><td style="text-align:right"><b>?${grand.toFixed(2)}</b></td></tr></table><div class="footer"><p>Thank you for choosing Janaseva Kendram</p></div><script>window.print();window.close();<\/script></body></html>`);
+  win.document.write(`<!DOCTYPE html><html><head><title>Bill</title><style>body{font-family:Arial,sans-serif;max-width:400px;margin:20px auto;font-size:13px}h2,h3{text-align:center;margin:4px 0}table{width:100%;border-collapse:collapse}th,td{padding:5px 8px;border-bottom:1px solid #ddd}th{background:#f5f5f5}.total-row td{font-size:15px;font-weight:bold;border-top:2px solid #333}.grand td{font-size:18px;color:#1a5c2e;border-top:3px double #333}.footer{text-align:center;margin-top:16px;font-size:11px;color:#666}@media print{button{display:none}}</style></head><body><h2>JANASEVA KENDRAM</h2><h3 style="font-weight:400;color:#666">Thennala Westbazar Â· 9847816928</h3><hr><p>Bill: ${qs("#bill-no").value || `BILL-${billCounter}`} &nbsp;&nbsp; Date: ${new Date().toLocaleDateString("en-IN")}</p><p>Customer: ${qs("#bill-cust").value || "Â—"}</p><table><thead><tr><th>Item</th><th>Qty</th><th>Price</th><th>Total</th></tr></thead><tbody>${rows}</tbody></table><table style="margin-top:8px"><tr class="total-row"><td colspan="3">Subtotal</td><td style="text-align:right">?${subtotal.toFixed(2)}</td></tr>${gst > 0 ? `<tr><td colspan="3">GST (${gst}%)</td><td style="text-align:right">?${(subtotal * gst / 100).toFixed(2)}</td></tr>` : ""}<tr class="grand"><td colspan="3"><b>TOTAL</b></td><td style="text-align:right"><b>?${grand.toFixed(2)}</b></td></tr></table><div class="footer"><p>Thank you for choosing Janaseva Kendram</p></div><script>window.print();window.close();<\/script></body></html>`);
   win.document.close();
   billCounter++;
   saveState();
@@ -383,7 +383,7 @@ function renderSavedBills() {
     el.innerHTML = '<span style="color:var(--mu2)">No saved bills</span>';
     return;
   }
-  el.innerHTML = savedBills.slice(0, 8).map(bill => `<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--bdr);font-size:12px"><span style="color:var(--tx2)">${bill.no} · ${bill.cust}</span><span style="font-family:var(--mono);color:var(--g)">?${bill.total.toFixed(0)}</span></div>`).join("");
+  el.innerHTML = savedBills.slice(0, 8).map(bill => `<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--bdr);font-size:12px"><span style="color:var(--tx2)">${bill.no} Â· ${bill.cust}</span><span style="font-family:var(--mono);color:var(--g)">?${bill.total.toFixed(0)}</span></div>`).join("");
 }
 
 function dzOver(event, id) { event.preventDefault(); qs(`#${id}`).classList.add("drag"); }
@@ -404,10 +404,10 @@ async function mergePDFs() {
   if (pdfFiles.length < 2) { toast("Add at least 2 PDF files", "warn"); return; }
   const btn = qs("#pdf-merge-btn");
   btn.disabled = true;
-  btn.textContent = "Loading…";
+  btn.textContent = "LoadingÂ…";
   try {
     if (!window.PDFLib) await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js");
-    btn.textContent = "Merging…";
+    btn.textContent = "MergingÂ…";
     setPb("pdf-pb-fill", 30);
     const merged = await PDFLib.PDFDocument.create();
     for (let i = 0; i < pdfFiles.length; i++) {
@@ -503,7 +503,7 @@ function loadResizeImage(event) {
     qs("#resize-w").value = img.naturalWidth;
     qs("#resize-h").value = img.naturalHeight;
     qs("#resize-preview").style.display = "flex";
-    qs("#resize-orig-info").textContent = `Original: ${img.naturalWidth}×${img.naturalHeight}px · ${(file.size / 1024).toFixed(1)}KB`;
+    qs("#resize-orig-info").textContent = `Original: ${img.naturalWidth}Ã—${img.naturalHeight}px Â· ${(file.size / 1024).toFixed(1)}KB`;
   };
   img.src = url;
 }
@@ -532,7 +532,7 @@ function doResize() {
     const ext = format.split("/")[1].replace("jpeg", "jpg");
     const result = qs("#resize-result");
     result.style.display = "block";
-    result.innerHTML = `? Resized to ${width}×${height}px · ${(blob.size / 1024).toFixed(1)}KB <br><a href="${url}" download="resized.${ext}">?? Download</a>`;
+    result.innerHTML = `? Resized to ${width}Ã—${height}px Â· ${(blob.size / 1024).toFixed(1)}KB <br><a href="${url}" download="resized.${ext}">?? Download</a>`;
     toast("? Image resized", "ok");
   }, format, quality);
 }
@@ -543,7 +543,7 @@ function loadCompressImage(event) {
   img.onload = () => {
     compressOrigImg = img;
     qs("#compress-preview").style.display = "flex";
-    qs("#compress-orig-info").textContent = `Original: ${img.naturalWidth}×${img.naturalHeight}px · ${(file.size / 1024).toFixed(1)}KB`;
+    qs("#compress-orig-info").textContent = `Original: ${img.naturalWidth}Ã—${img.naturalHeight}px Â· ${(file.size / 1024).toFixed(1)}KB`;
   };
   img.src = URL.createObjectURL(file);
 }
@@ -576,8 +576,8 @@ function loadIdPhoto(event) {
 function updateIdCard() {
   qs("#idc-title-p").textContent = qs("#idc-title").value || "ID CARD";
   qs("#idc-name-p").textContent = qs("#idc-name").value || "Name";
-  qs("#idc-dob-p").textContent = qs("#idc-dob").value || "—";
-  qs("#idc-gender-p").textContent = qs("#idc-gender").value || "—";
+  qs("#idc-dob-p").textContent = qs("#idc-dob").value || "Â—";
+  qs("#idc-gender-p").textContent = qs("#idc-gender").value || "Â—";
   qs("#idc-addr-p").textContent = qs("#idc-addr").value || "";
   qs("#idc-num-p").textContent = qs("#idc-num").value || "XXXX XXXX XXXX";
   qs("#idc-footer-p").textContent = qs("#idc-footer").value || "";
