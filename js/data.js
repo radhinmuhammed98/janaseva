@@ -59,9 +59,9 @@ const DEFAULT_DATA = {
       },
       {
         "name": "e-Challan",
-        "url": "hh",
-        "desc": "uhyh",
-        "keywords": []
+        "url": "https://echallan.parivahan.gov.in/index/accused-challan",
+        "desc": "pay challan of the vehicle",
+        "keywords": ["challan","fine"]
       },
       {
         "name": "Vehicle Tax",
