@@ -1,4 +1,4 @@
-﻿function ensureMainCategoryLinks() {
+function ensureMainCategoryLinks() {
   const target = DATA && DATA['eDistrict Kerala'];
   if (!target) return;
   if (!Array.isArray(target._links)) target._links = [];
@@ -10,6 +10,34 @@
       keywords: ['edistrict', 'kerala edistrict', 'main portal', 'certificate portal']
     });
   }
+}
+
+function ensureCategoryIcons() {
+  if (!DATA) return;
+  const iconMap = {
+    'eDistrict Kerala': '🏛️',
+    'Payments': '💳',
+    'KSEB': '⚡',
+    'Ration Card Services': '🌾',
+    'കുടിക്കടം (Encumbrance)': '📜',
+    'Taxes & Revenue': '🏠',
+    'Parivahan Services': '🚗',
+    'Aadhaar': '🪪',
+    'PASSPORT': '🛂',
+    'PAN Card': '💼',
+    'ID-Cards': '🆔',
+    'UDYAM/MSME': '🏭',
+    'Health Services': '🏥',
+    'Digital Services': '💻',
+    'Government ID Services': '🪪',
+    'Ration Card': '🌾',
+    'Bill Payments': '⚡',
+    'Health & Digital': '🏥'
+  };
+
+  Object.entries(iconMap).forEach(([category, icon]) => {
+    if (DATA[category]) DATA[category]._icon = icon;
+  });
 }
 
 function fixHeaderLabels() {
@@ -32,6 +60,14 @@ function fixHeaderLabels() {
   if (themeBtn) {
     const theme = localStorage.getItem('csc_theme') || 'dark';
     themeBtn.innerHTML = theme === 'dark' ? '☀️ <span>Light</span>' : '🌙 <span>Dark</span>';
+  }
+}
+
+function ensureLogoEverywhere() {
+  const logo = document.querySelector('#logo-img');
+  if (logo) {
+    logo.src = 'logo.png';
+    logo.style.display = 'block';
   }
 }
 
@@ -149,6 +185,26 @@ toggleEdit = function () {
   fixHeaderLabels();
 };
 
+loadLogo = function () {
+  ensureLogoEverywhere();
+};
+
+printReceipt = function () {
+  const win = window.open('', '_blank');
+  const subtotal = billItems.reduce((sum, item) => sum + item.qty * item.price, 0);
+  const gst = parseFloat(qs('#bill-gst').value) || 0;
+  const grand = subtotal + subtotal * (gst / 100);
+  const rows = billItems.map(item => `<tr><td>${item.name}</td><td style="text-align:center">${item.qty}</td><td style="text-align:right">₹${item.price.toFixed(2)}</td><td style="text-align:right"><b>₹${(item.qty * item.price).toFixed(2)}</b></td></tr>`).join('');
+  const billNo = qs('#bill-no').value || `BILL-${billCounter}`;
+  const customer = qs('#bill-cust').value || '—';
+  const date = new Date().toLocaleDateString('en-IN');
+
+  win.document.write(`<!DOCTYPE html><html><head><title>Bill</title><link rel="icon" type="image/png" href="logo.png"><style>body{font-family:Arial,sans-serif;max-width:400px;margin:20px auto;font-size:13px}.brand{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:10px}.brand img{width:56px;height:56px;object-fit:contain}h2,h3{text-align:center;margin:4px 0}table{width:100%;border-collapse:collapse}th,td{padding:5px 8px;border-bottom:1px solid #ddd}th{background:#f5f5f5}.total-row td{font-size:15px;font-weight:bold;border-top:2px solid #333}.grand td{font-size:18px;color:#1a5c2e;border-top:3px double #333}.footer{text-align:center;margin-top:16px;font-size:11px;color:#666}@media print{button{display:none}}</style></head><body><div class="brand"><img src="logo.png" alt="Janaseva Kendram Logo" onerror="this.style.display='none'"><h2>JANASEVA KENDRAM</h2><h3 style="font-weight:400;color:#666">Thennala Westbazar · 9847816928</h3></div><hr><p>Bill: ${billNo} &nbsp;&nbsp; Date: ${date}</p><p>Customer: ${customer}</p><table><thead><tr><th>Item</th><th>Qty</th><th>Price</th><th>Total</th></tr></thead><tbody>${rows}</tbody></table><table style="margin-top:8px"><tr class="total-row"><td colspan="3">Subtotal</td><td style="text-align:right">₹${subtotal.toFixed(2)}</td></tr>${gst > 0 ? `<tr><td colspan="3">GST (${gst}%)</td><td style="text-align:right">₹${(subtotal * gst / 100).toFixed(2)}</td></tr>` : ''}<tr class="grand"><td colspan="3"><b>TOTAL</b></td><td style="text-align:right"><b>₹${grand.toFixed(2)}</b></td></tr></table><div class="footer"><p>Thank you for choosing Janaseva Kendram</p></div><script>window.print();window.close();<\/script></body></html>`);
+  win.document.close();
+  billCounter++;
+  saveState();
+};
+
 doCompress = function () {
   if (!compressOrigImg) {
     toast('Load an image first', 'warn');
@@ -206,7 +262,9 @@ doCompress = function () {
 
 document.addEventListener('DOMContentLoaded', () => {
   ensureMainCategoryLinks();
+  ensureCategoryIcons();
   if (typeof saveState === 'function') saveState();
+  ensureLogoEverywhere();
   fixHeaderLabels();
   fixSidebarLabels();
   fixToolHeadings();
