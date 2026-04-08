@@ -75,29 +75,6 @@ const DEFAULT_DATA = {
         ]
       },
       {
-        "name": "e-Challan",
-        "url": "https://echallan.parivahan.gov.in/index/accused-challan",
-        "desc": "pay challan of the vehicle",
-        "keywords": ["challan","fine"]
-      },
-      {
-        "name": "Vehicle Tax",
-        "url": "https://vahan.parivahan.gov.in/vahanservice/vahan/ui/statevalidation/homepage.xhtml?",
-        "desc": "Every services related with vehicle RC,Tax payment",
-        "keywords": [
-          "Tax",
-          "Veh TAX"
-        ]
-      },
-      {
-        "name": "വാഹന ക്ഷേമനിധി",
-        "url": "https://kmtwwfb.kerala.gov.in/index.php/paymentservice/paymentservice#",
-        "desc": "kmtwwfb",
-        "keywords": [
-          "kmtwwfb"
-        ]
-      },
-      {
         "name": "ജലനിധി (Water Bill)",
         "url": "https://www.smpay.in/login.php",
         "desc": "Pay  water bill",
@@ -460,6 +437,44 @@ const DEFAULT_DATA = {
   "Parivahan Services": {
     "_icon": "🚗",
     "_color": "#d97706",
+      "_links": [
+      {
+        "name": "Open KSMART",
+        "url": "https://ksmart.lsgkerala.gov.in/ui/home/citizen/login",
+        "desc": "Open the main KSMART portal directly.",
+        "keywords": [
+          "ksmart",
+          "kerala smart",
+          "main portal",
+          "certificate portal"
+        ]
+      }
+    ]
+  },
+        {
+        "name": "e-Challan",
+        "url": "https://echallan.parivahan.gov.in/index/accused-challan",
+        "desc": "pay challan of the vehicle",
+        "keywords": ["challan","fine"]
+      },
+      {
+        "name": "Vehicle Tax",
+        "url": "https://vahan.parivahan.gov.in/vahanservice/vahan/ui/statevalidation/homepage.xhtml?",
+        "desc": "Every services related with vehicle RC,Tax payment",
+        "keywords": [
+          "Tax",
+          "Veh TAX"
+        ]
+      },
+      {
+        "name": "വാഹന ക്ഷേമനിധി",
+        "url": "https://kmtwwfb.kerala.gov.in/index.php/paymentservice/paymentservice#",
+        "desc": "kmtwwfb",
+        "keywords": [
+          "kmtwwfb"
+        ]
+      },
+      ],
     "Driving Licence": [
       {
         "name": "License Related Services",
