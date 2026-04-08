@@ -1,4 +1,4 @@
-const SHEETS_URL = "https://script.google.com/macros/s/AKfycbwU_jm94mUJS8Sx6K_KLkVPQZ7qBl_GiiWSnWVOuuWWstUVTiT3_ESeHmX4-3r9TDeMcQ/exec";
+const SHEETS_URL = "https://script.google.com/macros/s/AKfycbyNaN0El8fsZbKfZmfz-y_R9rLMIZNvsp-EHKRVqvvEslCCZ9Q12jmrKkR1da7Sj5WGIA/exec";
 const INCOME_STORAGE_KEY = "csc_income";
 
 let incomeTransactions = [];
