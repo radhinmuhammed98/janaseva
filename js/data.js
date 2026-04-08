@@ -437,52 +437,40 @@ const DEFAULT_DATA = {
   "Parivahan Services": {
     "_icon": "🚗",
     "_color": "#d97706",
-      "_links": [
-        {
+    "_links": [
+      {
         "name": "e-Challan",
         "url": "https://echallan.parivahan.gov.in/index/accused-challan",
         "desc": "pay challan of the vehicle",
-        "keywords": ["challan","fine"]
+        "keywords": ["challan", "fine"]
       },
       {
         "name": "Vehicle Tax",
         "url": "https://vahan.parivahan.gov.in/vahanservice/vahan/ui/statevalidation/homepage.xhtml?",
         "desc": "Every services related with vehicle RC,Tax payment",
-        "keywords": [
-          "Tax",
-          "Veh TAX"]
+        "keywords": ["Tax", "Veh TAX"]
       },
       {
         "name": "വാഹന ക്ഷേമനിധി",
         "url": "https://kmtwwfb.kerala.gov.in/index.php/paymentservice/paymentservice#",
         "desc": "kmtwwfb",
-        "keywords": [
-          "kmtwwfb"
-        ]
-      },
-      ],
+        "keywords": ["kmtwwfb"]
+      } // Removed trailing comma here
+    ],
     "Driving Licence": [
       {
         "name": "License Related Services",
         "url": "https://sarathi.parivahan.gov.in/",
         "desc": "All Services related to License",
-        "keywords": [
-          "dl status",
-          "driving status",
-          "sarathi status",
-          "track dl"
-        ]
+        "keywords": ["dl status", "driving status", "sarathi status", "track dl"]
       }
     ],
-  ],
     "Vehicle Registration": [
       {
         "name": "Vehicle Related Services",
         "url": "https://vahan.parivahan.gov.in/vahanservice/vahan/ui/statevalidation/homepage.xhtml?statecd=Mzc2MzM2MzAzNjY0MzIzODM3NjIzNjY0MzY2MjM3NGI0Yw==",
         "desc": "Every services related with vehicle RC",
-        "keywords": [
-          "Vehicle related"
-        ]
+        "keywords": ["Vehicle related"]
       }
     ]
   },
