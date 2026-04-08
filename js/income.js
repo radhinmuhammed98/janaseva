@@ -362,24 +362,29 @@ function clearIncomeForm() {
 
 async function syncIncomeTransaction(transaction) {
   if (!isSheetsConfigured()) return false;
+
   try {
-    const response = await fetch(SHEETS_URL, {
+    const formData = new FormData();
+
+    formData.append("id", transaction.id);
+    formData.append("date", transaction.date);
+    formData.append("time", transaction.time);
+    formData.append("service", transaction.service);
+    formData.append("category", transaction.category);
+    formData.append("amount", transaction.amount);
+    formData.append("profit", transaction.profit);
+    formData.append("expense", transaction.expense);
+    formData.append("note", transaction.note);
+
+    await fetch(SHEETS_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: transaction.id,
-        date: transaction.date,
-        time: transaction.time,
-        service: transaction.service,
-        category: transaction.category,
-        amount: transaction.amount,
-        profit: transaction.profit,
-        expense: transaction.expense,
-        note: transaction.note
-      })
+      body: formData
     });
-    return response.ok;
-  } catch {
+
+    return true;
+
+  } catch (err) {
+    console.error("Sync error:", err);
     return false;
   }
 }
