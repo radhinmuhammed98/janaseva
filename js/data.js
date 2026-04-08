@@ -20,7 +20,7 @@ const DEFAULT_DATA = {
   },
    "KSMART": {
     "_icon": "🛡",
-    "_color": "#059669",
+    "_color": "#e82c78",
     "_links": [
       {
         "name": "Open KSMART",
