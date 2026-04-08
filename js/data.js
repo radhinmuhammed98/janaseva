@@ -91,10 +91,10 @@ const DEFAULT_DATA = {
       },
       {
         "name": "വാഹന ക്ഷേമനിധി",
-        "url": "fff",
-        "desc": "fff",
+        "url": "https://kmtwwfb.kerala.gov.in/index.php/paymentservice/paymentservice#",
+        "desc": "kmtwwfb",
         "keywords": [
-          "fff"
+          "kmtwwfb"
         ]
       },
       {
