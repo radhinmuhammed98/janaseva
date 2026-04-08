@@ -438,19 +438,6 @@ const DEFAULT_DATA = {
     "_icon": "🚗",
     "_color": "#d97706",
       "_links": [
-      {
-        "name": "Open KSMART",
-        "url": "https://ksmart.lsgkerala.gov.in/ui/home/citizen/login",
-        "desc": "Open the main KSMART portal directly.",
-        "keywords": [
-          "ksmart",
-          "kerala smart",
-          "main portal",
-          "certificate portal"
-        ]
-      }
-    ]
-  },
         {
         "name": "e-Challan",
         "url": "https://echallan.parivahan.gov.in/index/accused-challan",
@@ -463,8 +450,7 @@ const DEFAULT_DATA = {
         "desc": "Every services related with vehicle RC,Tax payment",
         "keywords": [
           "Tax",
-          "Veh TAX"
-        ]
+          "Veh TAX"]
       },
       {
         "name": "വാഹന ക്ഷേമനിധി",
@@ -488,6 +474,7 @@ const DEFAULT_DATA = {
         ]
       }
     ],
+  ],
     "Vehicle Registration": [
       {
         "name": "Vehicle Related Services",
