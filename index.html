@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Janaseva Kendram - CSC Operations</title>
-  <link rel="icon" type="image/png" href="logo.jpeg">
-  <link rel="apple-touch-icon" href="logo.jpeg">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,19 +17,19 @@
         </div>
         <div class="brand">
           <div class="brand-name"><span class="g">Janaseva</span> <span class="o">Kendram</span></div>
-          <div class="brand-sub">Ismail KV · Thennala Westbazar · 📞 9847816928</div>
+          <div class="brand-sub">Ismail KV Â· Thennala Westbazar Â· ðŸ“ž 9847816928</div>
         </div>
         <div class="hsearch">
           <div class="hsearch-wrap">
-            <span class="hsearch-ico">⌕</span>
-            <input type="text" id="global-search" placeholder="Search services… (press /)">
+            <span class="hsearch-ico">âŒ•</span>
+            <input type="text" id="global-search" placeholder="Search servicesâ€¦ (press /)">
           </div>
         </div>
         <div class="hright">
-          <button class="hbtn edit-btn" id="edit-btn" onclick="toggleEdit()">✏️ <span>Edit</span></button>
-          <button class="hbtn" id="theme-btn" onclick="toggleTheme()">☀️ <span>Light</span></button>
+          <button class="hbtn edit-btn" id="edit-btn" onclick="toggleEdit()">âœï¸ <span>Edit</span></button>
+          <button class="hbtn" id="theme-btn" onclick="toggleTheme()">â˜€ï¸ <span>Light</span></button>
           <div class="hinfo">
-            <a href="tel:9847816928">📞 9847816928</a>
+            <a href="tel:9847816928">ðŸ“ž 9847816928</a>
           </div>
         </div>
       </div>
@@ -40,51 +40,51 @@
         <div class="sb-section">
           <div class="sb-label">Main</div>
           <div class="sb-item active" data-view="services" onclick="showView('services')">
-            <span class="sb-icon">🌐</span><span>Services</span>
+            <span class="sb-icon">ðŸŒ</span><span>Services</span>
           </div>
           <div class="sb-item" data-view="billing" onclick="showView('billing')">
-            <span class="sb-icon">🧾</span><span>Billing</span>
+            <span class="sb-icon">ðŸ§¾</span><span>Billing</span>
           </div>
         </div>
         <div class="sb-divider"></div>
         <div class="sb-section">
           <div class="sb-label">Tools</div>
           <div class="sb-item" data-view="pdf-merge" onclick="showView('pdf-merge')">
-            <span class="sb-icon">📄</span><span>Merge PDF</span>
+            <span class="sb-icon">ðŸ“„</span><span>Merge PDF</span>
           </div>
           <div class="sb-item" data-view="img-to-pdf" onclick="showView('img-to-pdf')">
-            <span class="sb-icon">🖼️</span><span>Image → PDF</span>
+            <span class="sb-icon">ðŸ–¼ï¸</span><span>Image â†’ PDF</span>
           </div>
           <div class="sb-item" data-view="img-resize" onclick="showView('img-resize')">
-            <span class="sb-icon">📐</span><span>Resize Image</span>
+            <span class="sb-icon">ðŸ“</span><span>Resize Image</span>
           </div>
           <div class="sb-item" data-view="img-compress" onclick="showView('img-compress')">
-            <span class="sb-icon">🗜️</span><span>Compress Image</span>
+            <span class="sb-icon">ðŸ—œï¸</span><span>Compress Image</span>
           </div>
           <div class="sb-item" data-view="id-card" onclick="showView('id-card')">
-            <span class="sb-icon">🪪</span><span>ID Card Print</span>
+            <span class="sb-icon">ðŸªª</span><span>ID Card Print</span>
           </div>
         </div>
         <div class="sb-divider"></div>
         <div class="sb-section">
           <div class="sb-label">Finance</div>
           <div class="sb-item" data-view="income" onclick="showView('income')">
-            <span class="sb-icon">💰</span><span>Daily Income</span>
+            <span class="sb-icon">ðŸ’°</span><span>Daily Income</span>
           </div>
         </div>
         <div class="sb-divider"></div>
         <div class="sb-section">
           <div class="sb-label" style="opacity:.5">Coming Soon</div>
           <div class="sb-item" style="opacity:.4;cursor:default">
-            <span class="sb-icon">🤖</span><span>AI Tools</span>
+            <span class="sb-icon">ðŸ¤–</span><span>AI Tools</span>
           </div>
           <div class="sb-item" style="opacity:.4;cursor:default">
-            <span class="sb-icon">🔍</span><span>OCR Reader</span>
+            <span class="sb-icon">ðŸ”</span><span>OCR Reader</span>
           </div>
         </div>
         <div class="sb-bottom">
           <div class="sb-item" onclick="openJson()">
-            <span class="sb-icon">⚙️</span><span>Manage Data</span>
+            <span class="sb-icon">âš™ï¸</span><span>Manage Data</span>
           </div>
         </div>
       </nav>
@@ -159,13 +159,16 @@
             <div class="category-card-grid" id="category-card-grid"></div>
           </div>
         </div>
-
         <div class="tool-view" id="view-income">
           <div class="income-shell">
             <div class="services-top">
               <div>
                 <div class="page-title">Daily Income Tracker</div>
-                <div class="page-sub">Synced with Google Sheets <span id="income-sync-meta">· ready to sync</span></div>
+                <div class="page-sub">Income, profit and expense tracking with Google Sheets sync <span id="income-sync-meta">· ready to sync</span></div>
+              </div>
+              <div class="view-actions income-view-actions">
+                <button class="btn btn-ghost btn-sm" onclick="syncAllIncomeTransactions()">Sync Pending</button>
+                <button class="btn btn-ghost btn-sm" onclick="fetchIncomeTransactionsFromSheets(true)">Refresh Sheet</button>
               </div>
             </div>
 
@@ -187,28 +190,48 @@
               </div>
               <div class="card income-stat-card">
                 <div class="income-stat-label">Net Income Today</div>
-                <div class="income-stat-value" id="income-stat-net">?0</div>
+                <div class="income-stat-value" id="income-stat-net">₹0</div>
                 <div class="income-stat-meta">Profit - Expense</div>
+              </div>
+              <div class="card income-stat-card">
+                <div class="income-stat-label">Profit This Month</div>
+                <div class="income-stat-value" id="income-stat-month-profit">₹0</div>
+                <div class="income-stat-meta" id="income-stat-month-meta">Current month</div>
+              </div>
+              <div class="card income-stat-card">
+                <div class="income-stat-label">Net This Month</div>
+                <div class="income-stat-value" id="income-stat-month-net">₹0</div>
+                <div class="income-stat-meta">Profit - Expense</div>
+              </div>
+              <div class="card income-stat-card">
+                <div class="income-stat-label">Profit This Year</div>
+                <div class="income-stat-value" id="income-stat-year-profit">₹0</div>
+                <div class="income-stat-meta" id="income-stat-year-meta">Current year</div>
+              </div>
+              <div class="card income-stat-card">
+                <div class="income-stat-label">Total Profit</div>
+                <div class="income-stat-value" id="income-stat-all-profit">₹0</div>
+                <div class="income-stat-meta" id="income-stat-pending">0 pending sync</div>
               </div>
             </div>
 
             <div class="card margin-bottom">
               <div class="card-title">Add Transaction</div>
               <div class="income-form-grid">
-                <div class="income-form-span">
+                <div class="income-form-span income-field-service">
                   <label class="label">Service / Description</label>
                   <input class="inp" id="income-service" placeholder="e.g. Aadhaar Update">
                 </div>
                 <div>
-                  <label class="label">Amount (?)</label>
+                  <label class="label">Amount (₹)</label>
                   <input class="inp" id="income-amount" type="number" min="0" step="0.01" placeholder="0.00">
                 </div>
                 <div>
-                  <label class="label">Profit (?)</label>
+                  <label class="label">Profit (₹)</label>
                   <input class="inp" id="income-profit" type="number" min="0" step="0.01" placeholder="Defaults to amount">
                 </div>
                 <div>
-                  <label class="label">Expense (?)</label>
+                  <label class="label">Expense (₹)</label>
                   <input class="inp" id="income-expense" type="number" min="0" step="0.01" value="0" placeholder="0.00">
                 </div>
                 <div>
@@ -224,12 +247,20 @@
                     <option>Other</option>
                   </select>
                 </div>
-                <div class="income-add-wrap">
-                  <button class="btn btn-green" onclick="addIncomeTransaction()">Add Transaction</button>
+                <div>
+                  <label class="label">Date</label>
+                  <input class="inp" id="income-date" type="date">
                 </div>
-                <div class="income-form-span">
+                <div>
+                  <label class="label">Time</label>
+                  <input class="inp" id="income-time" type="time">
+                </div>
+                <div class="income-form-span income-note-wrap">
                   <label class="label">Note</label>
                   <input class="inp" id="income-note" placeholder="Optional note">
+                </div>
+                <div class="income-add-wrap">
+                  <button class="btn btn-green" onclick="addIncomeTransaction()">Add Transaction</button>
                 </div>
               </div>
               <div class="margin-top-small">
@@ -239,30 +270,39 @@
             </div>
 
             <div class="card">
-              <div class="card-title">Today's Transactions
-                <button class="btn btn-ghost btn-sm ml-auto" onclick="retryPendingIncomeTransactions()">Retry Pending</button>
+              <div class="card-title">Transactions
+                <div class="income-table-actions ml-auto">
+                  <select class="inp income-filter-select" id="income-range-filter" onchange="renderIncomeView()">
+                    <option value="today">Today</option>
+                    <option value="month">This Month</option>
+                    <option value="year">This Year</option>
+                    <option value="all">All Time</option>
+                  </select>
+                  <button class="btn btn-ghost btn-sm" onclick="syncAllIncomeTransactions()">Retry Pending</button>
+                </div>
               </div>
-              <table class="bill-table">
-                <thead>
-                  <tr>
-                    <th>Time</th><th>Service</th><th>Category</th><th>Amount</th><th>Profit</th><th>Expense</th><th>Sync Status</th><th></th>
-                  </tr>
-                </thead>
-                <tbody id="income-tbody">
-                  <tr><td colspan="8" class="empty-row">No transactions added today</td></tr>
-                </tbody>
-              </table>
+              <div class="table-scroll">
+                <table class="bill-table income-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th><th>Time</th><th>Service</th><th>Category</th><th>Amount</th><th>Profit</th><th>Expense</th><th>Sync Status</th><th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="income-tbody">
+                    <tr><td colspan="9" class="empty-row">No transactions added yet</td></tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-
         <div class="tool-view" id="view-billing">
-          <div class="page-title">🧾 Billing System</div>
+          <div class="page-title">ðŸ§¾ Billing System</div>
           <div class="page-sub">Create bills, manage items, print receipts</div>
           <div class="bill-layout">
             <div class="bill-left">
               <div class="card">
-                <div class="card-title">📋 Bill Details</div>
+                <div class="card-title">ðŸ“‹ Bill Details</div>
                 <div class="grid2">
                   <div>
                     <label class="label">Customer Name</label>
@@ -276,7 +316,7 @@
               </div>
 
               <div class="card">
-                <div class="card-title">➕ Add Item</div>
+                <div class="card-title">âž• Add Item</div>
                 <div class="bill-add-form">
                   <div>
                     <label class="label">Item Name</label>
@@ -287,7 +327,7 @@
                     <input class="inp" id="bill-item-qty" type="number" value="1" min="1" style="text-align:center">
                   </div>
                   <div>
-                    <label class="label">Price (₹)</label>
+                    <label class="label">Price (â‚¹)</label>
                     <input class="inp" id="bill-item-price" type="number" placeholder="0.00" step="0.01" onkeydown="if(event.key==='Enter')addBillItem()">
                   </div>
                   <div class="pad-top">
@@ -301,8 +341,8 @@
               </div>
 
               <div class="card">
-                <div class="card-title">📦 Items
-                  <button class="btn btn-danger btn-sm ml-auto" onclick="clearBill()">🗑 Clear Bill</button>
+                <div class="card-title">ðŸ“¦ Items
+                  <button class="btn btn-danger btn-sm ml-auto" onclick="clearBill()">ðŸ—‘ Clear Bill</button>
                 </div>
                 <table class="bill-table">
                   <thead>
@@ -315,7 +355,7 @@
                 <div class="padding-top">
                   <div class="bill-total-row">
                     <span class="label">Subtotal</span>
-                    <span id="bill-subtotal" class="mono-strong">₹0.00</span>
+                    <span id="bill-subtotal" class="mono-strong">â‚¹0.00</span>
                   </div>
                   <div class="bill-total-row no-top">
                     <span class="label">GST (0%)</span>
@@ -325,11 +365,11 @@
                       <option value="12">12%</option>
                       <option value="18">18%</option>
                     </select>
-                    <span id="bill-gst-amt" class="mono-small">₹0.00</span>
+                    <span id="bill-gst-amt" class="mono-small">â‚¹0.00</span>
                   </div>
                   <div class="bill-total-row">
                     <span class="grand-label">TOTAL</span>
-                    <span class="bill-total-val" id="bill-grand">₹0.00</span>
+                    <span class="bill-total-val" id="bill-grand">â‚¹0.00</span>
                   </div>
                 </div>
               </div>
@@ -337,54 +377,54 @@
 
             <div class="bill-right">
               <div class="card fill-card">
-                <div class="card-title">🧾 Receipt Preview
-                  <button class="btn btn-orange btn-sm ml-auto" onclick="printReceipt()">🖨️ Print</button>
-                  <button class="btn btn-ghost btn-sm ml-small" onclick="copyReceipt()">📋 Copy</button>
+                <div class="card-title">ðŸ§¾ Receipt Preview
+                  <button class="btn btn-orange btn-sm ml-auto" onclick="printReceipt()">ðŸ–¨ï¸ Print</button>
+                  <button class="btn btn-ghost btn-sm ml-small" onclick="copyReceipt()">ðŸ“‹ Copy</button>
                 </div>
-                <div class="receipt-preview" id="receipt-preview">No items yet…</div>
+                <div class="receipt-preview" id="receipt-preview">No items yetâ€¦</div>
               </div>
               <div class="card">
-                <div class="card-title">📅 Saved Bills</div>
+                <div class="card-title">ðŸ“… Saved Bills</div>
                 <div id="saved-bills-list" class="muted-text">No saved bills</div>
-                <button class="btn btn-ghost btn-sm full-width margin-top-small" onclick="saveBill()">💾 Save Current Bill</button>
+                <button class="btn btn-ghost btn-sm full-width margin-top-small" onclick="saveBill()">ðŸ’¾ Save Current Bill</button>
               </div>
             </div>
           </div>
         </div>
 
         <div class="tool-view" id="view-pdf-merge">
-          <div class="page-title">📄 Merge PDF</div>
+          <div class="page-title">ðŸ“„ Merge PDF</div>
           <div class="page-sub">Combine multiple PDF files into one - runs entirely in your browser, no upload</div>
           <div class="grid2 tool-grid">
             <div class="col">
               <div class="card">
-                <div class="card-title">📂 Select PDF Files</div>
+                <div class="card-title">ðŸ“‚ Select PDF Files</div>
                 <div class="drop-zone" id="pdf-dz" onclick="qs('#pdf-file-input').click()" ondragover="dzOver(event,'pdf-dz')" ondragleave="dzLeave('pdf-dz')" ondrop="dzDrop(event,'pdf')">
-                  <div class="dz-icon">📄</div>
+                  <div class="dz-icon">ðŸ“„</div>
                   <div class="dz-text">Click or drag PDF files here</div>
-                  <div class="dz-sub">Multiple files supported · order is preserved</div>
+                  <div class="dz-sub">Multiple files supported Â· order is preserved</div>
                 </div>
                 <input type="file" id="pdf-file-input" accept=".pdf" multiple class="hidden-file" onchange="pdfFilesSelected(event)">
                 <div class="file-list" id="pdf-file-list"></div>
               </div>
               <div class="card">
-                <div class="card-title">⚙️ Options</div>
+                <div class="card-title">âš™ï¸ Options</div>
                 <label class="label margin-bottom-small">Output Filename</label>
                 <input class="inp" id="pdf-out-name" value="merged.pdf">
               </div>
             </div>
             <div class="col">
               <div class="card">
-                <div class="card-title">ℹ️ How it works</div>
+                <div class="card-title">â„¹ï¸ How it works</div>
                 <div class="help-text">
                   1. Add two or more PDF files<br>
                   2. Drag to reorder if needed<br>
                   3. Click Merge - combines instantly in browser<br>
                   4. Download the merged file<br><br>
-                  <span class="warn-text">⚠️ Uses pdf-lib library (loads from CDN on first use)</span>
+                  <span class="warn-text">âš ï¸ Uses pdf-lib library (loads from CDN on first use)</span>
                 </div>
                 <div class="progress-bar" id="pdf-progress"><div class="pb-fill" id="pdf-pb-fill"></div></div>
-                <button class="btn btn-orange full-width margin-top-small" onclick="mergePDFs()" id="pdf-merge-btn">🔀 Merge PDFs</button>
+                <button class="btn btn-orange full-width margin-top-small" onclick="mergePDFs()" id="pdf-merge-btn">ðŸ”€ Merge PDFs</button>
                 <div class="tool-result margin-top-small hidden" id="pdf-result"></div>
               </div>
             </div>
@@ -392,16 +432,16 @@
         </div>
 
         <div class="tool-view" id="view-img-to-pdf">
-          <div class="page-title">🖼️ Image → PDF</div>
+          <div class="page-title">ðŸ–¼ï¸ Image â†’ PDF</div>
           <div class="page-sub">Convert one or more images (JPG, PNG) to a PDF file - no internet needed</div>
           <div class="grid2 tool-grid">
             <div class="col">
               <div class="card">
-                <div class="card-title">🖼️ Select Images</div>
+                <div class="card-title">ðŸ–¼ï¸ Select Images</div>
                 <div class="drop-zone" id="i2p-dz" onclick="qs('#i2p-input').click()" ondragover="dzOver(event,'i2p-dz')" ondragleave="dzLeave('i2p-dz')" ondrop="dzDrop(event,'i2p')">
-                  <div class="dz-icon">🖼️</div>
+                  <div class="dz-icon">ðŸ–¼ï¸</div>
                   <div class="dz-text">Click or drag images here</div>
-                  <div class="dz-sub">JPG, PNG, WEBP · each image = one page</div>
+                  <div class="dz-sub">JPG, PNG, WEBP Â· each image = one page</div>
                 </div>
                 <input type="file" id="i2p-input" accept="image/*" multiple class="hidden-file" onchange="i2pFilesSelected(event)">
                 <div class="file-list" id="i2p-file-list"></div>
@@ -409,7 +449,7 @@
             </div>
             <div class="col">
               <div class="card">
-                <div class="card-title">⚙️ Page Size</div>
+                <div class="card-title">âš™ï¸ Page Size</div>
                 <div class="grid2">
                   <div>
                     <label class="label">Page Size</label>
@@ -431,7 +471,7 @@
                 <label class="label margin-top-small">Output Filename</label>
                 <input class="inp" id="i2p-name" value="images.pdf">
                 <div class="progress-bar margin-top-small"><div class="pb-fill" id="i2p-pb"></div></div>
-                <button class="btn btn-orange full-width margin-top-small" onclick="imagesToPDF()">📄 Convert to PDF</button>
+                <button class="btn btn-orange full-width margin-top-small" onclick="imagesToPDF()">ðŸ“„ Convert to PDF</button>
                 <div class="tool-result margin-top-small hidden" id="i2p-result"></div>
               </div>
             </div>
@@ -439,14 +479,14 @@
         </div>
 
         <div class="tool-view" id="view-img-resize">
-          <div class="page-title">📐 Resize Image</div>
+          <div class="page-title">ðŸ“ Resize Image</div>
           <div class="page-sub">Resize any image to exact dimensions - runs in browser, nothing uploaded</div>
           <div class="grid2 tool-grid">
             <div class="col">
               <div class="card">
-                <div class="card-title">📁 Load Image</div>
+                <div class="card-title">ðŸ“ Load Image</div>
                 <div class="drop-zone" onclick="qs('#resize-input').click()">
-                  <div class="dz-icon">📐</div>
+                  <div class="dz-icon">ðŸ“</div>
                   <div class="dz-text">Click to select image</div>
                   <div class="dz-sub">JPG, PNG, WEBP, GIF</div>
                 </div>
@@ -459,7 +499,7 @@
             </div>
             <div class="col">
               <div class="card">
-                <div class="card-title">⚙️ Resize Settings</div>
+                <div class="card-title">âš™ï¸ Resize Settings</div>
                 <div class="img-controls">
                   <div>
                     <label class="label">Width (px)</label>
@@ -489,7 +529,7 @@
                     <span id="resize-quality-val" class="preview-info left-align">90%</span>
                   </div>
                 </div>
-                <button class="btn btn-orange full-width margin-top-small" onclick="doResize()">📐 Resize & Download</button>
+                <button class="btn btn-orange full-width margin-top-small" onclick="doResize()">ðŸ“ Resize & Download</button>
                 <canvas id="resize-canvas" class="hidden"></canvas>
                 <div id="resize-result" class="tool-result margin-top-small hidden"></div>
               </div>
@@ -498,14 +538,14 @@
         </div>
 
         <div class="tool-view" id="view-img-compress">
-          <div class="page-title">🗜️ Compress Image</div>
+          <div class="page-title">ðŸ—œï¸ Compress Image</div>
           <div class="page-sub">Reduce file size of images - all processing happens in your browser</div>
           <div class="grid2 tool-grid">
             <div class="col">
               <div class="card">
-                <div class="card-title">📁 Load Image</div>
+                <div class="card-title">ðŸ“ Load Image</div>
                 <div class="drop-zone" onclick="qs('#compress-input').click()">
-                  <div class="dz-icon">🗜️</div>
+                  <div class="dz-icon">ðŸ—œï¸</div>
                   <div class="dz-text">Click to select image</div>
                   <div class="dz-sub">JPG, PNG, WEBP</div>
                 </div>
@@ -518,7 +558,7 @@
             </div>
             <div class="col">
               <div class="card">
-                <div class="card-title">⚙️ Compression</div>
+                <div class="card-title">âš™ï¸ Compression</div>
                 <div class="slider-group margin-bottom">
                   <label>Quality: <strong id="cq-val">75</strong>%</label>
                   <input type="range" id="compress-quality" min="5" max="100" value="75" oninput="qs('#cq-val').textContent=this.value">
@@ -531,7 +571,7 @@
                   </select>
                 </div>
                 <div id="compress-size-info" class="muted-copy"></div>
-                <button class="btn btn-orange full-width margin-top-small" onclick="doCompress()">🗜️ Compress & Download</button>
+                <button class="btn btn-orange full-width margin-top-small" onclick="doCompress()">ðŸ—œï¸ Compress & Download</button>
                 <canvas id="compress-canvas" class="hidden"></canvas>
                 <div id="compress-result" class="tool-result margin-top-small hidden"></div>
               </div>
@@ -540,12 +580,12 @@
         </div>
 
         <div class="tool-view" id="view-id-card">
-          <div class="page-title">🪪 ID Card / Aadhaar Print Layout</div>
+          <div class="page-title">ðŸªª ID Card / Aadhaar Print Layout</div>
           <div class="page-sub">Fill in details and print a standard ID card layout</div>
           <div class="grid2 tool-grid">
             <div class="col">
               <div class="card">
-                <div class="card-title">📝 Card Details</div>
+                <div class="card-title">ðŸ“ Card Details</div>
                 <div class="form-stack">
                   <div>
                     <label class="label">Card Type / Title</label>
@@ -585,18 +625,18 @@
                     <label class="label">Footer Text</label>
                     <input class="inp" id="idc-footer" value="Government of India - Unique Identification Authority of India">
                   </div>
-                  <button class="btn btn-orange" onclick="updateIdCard()">🔄 Update Preview</button>
+                  <button class="btn btn-orange" onclick="updateIdCard()">ðŸ”„ Update Preview</button>
                 </div>
               </div>
             </div>
             <div class="col">
               <div class="card">
-                <div class="card-title">👁️ Preview</div>
+                <div class="card-title">ðŸ‘ï¸ Preview</div>
                 <div id="id-card-render">
                   <div class="id-card-preview">
                     <div class="id-card-header">
                       <div class="id-title-preview" id="idc-title-p">AADHAAR CARD</div>
-                      <div class="id-subtitle">भारत सरकार / Government of India</div>
+                      <div class="id-subtitle">à¤­à¤¾à¤°à¤¤ à¤¸à¤°à¤•à¤¾à¤° / Government of India</div>
                     </div>
                     <div class="id-card-body">
                       <div class="id-photo" id="idc-photo-p">
@@ -604,8 +644,8 @@
                       </div>
                       <div class="id-info">
                         <div class="id-name" id="idc-name-p">Name</div>
-                        <div class="id-field">DOB: <strong id="idc-dob-p">—</strong></div>
-                        <div class="id-field">Gender: <strong id="idc-gender-p">—</strong></div>
+                        <div class="id-field">DOB: <strong id="idc-dob-p">â€”</strong></div>
+                        <div class="id-field">Gender: <strong id="idc-gender-p">â€”</strong></div>
                         <div class="id-field address-gap" id="idc-addr-p"></div>
                       </div>
                     </div>
@@ -614,11 +654,11 @@
                   </div>
                 </div>
                 <div class="btn-row">
-                  <button class="btn btn-green grow" onclick="printIdCard()">🖨️ Print Card</button>
-                  <button class="btn btn-ghost" onclick="updateIdCard()">🔄 Refresh</button>
+                  <button class="btn btn-green grow" onclick="printIdCard()">ðŸ–¨ï¸ Print Card</button>
+                  <button class="btn btn-ghost" onclick="updateIdCard()">ðŸ”„ Refresh</button>
                 </div>
                 <div class="tip-text">
-                  💡 Tip: Print two copies on A4 paper - cuts to standard credit card size.
+                  ðŸ’¡ Tip: Print two copies on A4 paper - cuts to standard credit card size.
                   For official use, always use the original government portal.
                 </div>
               </div>
@@ -633,23 +673,23 @@
 
   <div class="ov" id="json-ov">
     <div class="modal modal-wide">
-      <div class="mh"><span class="mt">⚙️ Manage Service Data (JSON)</span><button class="mx" onclick="closeOv('json-ov')">✕</button></div>
+      <div class="mh"><span class="mt">âš™ï¸ Manage Service Data (JSON)</span><button class="mx" onclick="closeOv('json-ov')">âœ•</button></div>
       <div class="mb">
         <p class="modal-note">Edit raw service data. Format: each link = <code>{"name","url","desc","keywords":[]}</code></p>
         <textarea id="json-ta" class="json-editor" spellcheck="false"></textarea>
       </div>
       <div class="mf wrap-gap">
-        <button class="btn btn-danger btn-sm mr-auto" onclick="resetDataConfirm()">↩ Reset</button>
-        <button class="btn btn-ghost btn-sm" onclick="importJson()">📂 Import</button>
+        <button class="btn btn-danger btn-sm mr-auto" onclick="resetDataConfirm()">â†© Reset</button>
+        <button class="btn btn-ghost btn-sm" onclick="importJson()">ðŸ“‚ Import</button>
         <button class="btn btn-ghost" onclick="closeOv('json-ov')">Cancel</button>
-        <button class="btn btn-green" onclick="saveJson()">💾 Save</button>
+        <button class="btn btn-green" onclick="saveJson()">ðŸ’¾ Save</button>
       </div>
     </div>
   </div>
 
   <div class="ov" id="del-ov">
     <div class="modal modal-small">
-      <div class="mh"><span class="mt text-err">⚠️ Confirm</span><button class="mx" onclick="closeOv('del-ov')">✕</button></div>
+      <div class="mh"><span class="mt text-err">âš ï¸ Confirm</span><button class="mx" onclick="closeOv('del-ov')">âœ•</button></div>
       <div class="mb"><p id="del-msg" class="del-text"></p></div>
       <div class="mf">
         <button class="btn btn-ghost" onclick="closeOv('del-ov')">Cancel</button>
@@ -662,7 +702,7 @@
     <div class="modal modal-wide">
       <div class="mh">
         <span class="mt" id="service-editor-title">Edit Service</span>
-        <button class="mx" onclick="closeOv('service-editor-ov')">✕</button>
+        <button class="mx" onclick="closeOv('service-editor-ov')">âœ•</button>
       </div>
       <div class="mb service-editor-body">
         <div class="service-editor-group" id="service-editor-location-wrap">
@@ -677,7 +717,7 @@
           <div class="grid2">
             <div class="service-editor-group">
               <label class="label">Icon</label>
-              <input class="inp" id="service-editor-category-icon" placeholder="🏛️" maxlength="8">
+              <input class="inp" id="service-editor-category-icon" placeholder="ðŸ›ï¸" maxlength="8">
             </div>
             <div class="service-editor-group">
               <label class="label">Colour</label>
@@ -729,6 +769,7 @@
   <script src="js/services-editor.js"></script>
 </body>
 </html>
+
 
 
 
