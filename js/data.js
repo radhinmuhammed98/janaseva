@@ -18,6 +18,23 @@ const DEFAULT_DATA = {
       }
     ]
   },
+   "KSMART": {
+    "_icon": "🛡",
+    "_color": "#059669",
+    "_links": [
+      {
+        "name": "Open KSMART",
+        "url": "https://ksmart.lsgkerala.gov.in/ui/home/citizen/login",
+        "desc": "Open the main KSMART portal directly.",
+        "keywords": [
+          "ksmart",
+          "kerala smart",
+          "main portal",
+          "certificate portal"
+        ]
+      }
+    ]
+  },
  "Payments": {
     "_icon": "P",
     "_color": "#3b82f6",
