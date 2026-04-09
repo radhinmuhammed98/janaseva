@@ -1,4 +1,6 @@
-{
+const LOGO_DATA_URL = "logo.jpeg";
+
+const DEFAULT_DATA = {
   "eDistrict Kerala": {
     "_icon": "🏛️",
     "_color": "#059669",
