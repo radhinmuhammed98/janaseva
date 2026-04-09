@@ -1,4 +1,4 @@
-﻿let DATA = {};
+let DATA = {};
 let EDIT_MODE = false;
 let billItems = [];
 let billCounter = 1;
