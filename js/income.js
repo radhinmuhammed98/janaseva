@@ -389,6 +389,7 @@ function escapeIncomeHtml(value) {
 
 function setText(selector, value) {
   const el = qs(selector);
+  
   if (el) el.textContent = value;
 }
 
