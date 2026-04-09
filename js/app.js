@@ -4,6 +4,7 @@ let billItems = [];
 let billCounter = 1;
 let savedBills = [];
 let pdfFiles = [];
+let pdfCompressFile = null;
 let i2pFiles = [];
 let resizeOrigImg = null;
 let compressOrigImg = null;
@@ -107,6 +108,9 @@ function showView(id) {
   const view = qs(`#view-${id}`);
   if (view) view.classList.add("active");
   qsa(`.sb-item[data-view="${id}"]`).forEach(item => item.classList.add("active"));
+  if (id === "income" && typeof renderIncomeView === "function") {
+    requestAnimationFrame(() => requestAnimationFrame(() => renderIncomeView()));
+  }
 }
 
 function renderServices() {
@@ -388,7 +392,13 @@ function renderSavedBills() {
 
 function dzOver(event, id) { event.preventDefault(); qs(`#${id}`).classList.add("drag"); }
 function dzLeave(id) { qs(`#${id}`).classList.remove("drag"); }
-function dzDrop(event, type) { event.preventDefault(); const files = [...event.dataTransfer.files]; if (type === "pdf") addPdfFiles(files); if (type === "i2p") addI2pFiles(files); }
+function dzDrop(event, type) {
+  event.preventDefault();
+  const files = [...event.dataTransfer.files];
+  if (type === "pdf") addPdfFiles(files);
+  if (type === "i2p") addI2pFiles(files);
+  if (type === "pdf-compress") addPdfCompressFile(files[0]);
+}
 function pdfFilesSelected(event) { addPdfFiles([...event.target.files]); }
 
 function addPdfFiles(files) {
@@ -398,6 +408,29 @@ function addPdfFiles(files) {
 
 function renderPdfList() {
   qs("#pdf-file-list").innerHTML = pdfFiles.map((file, i) => `<div class="file-item"><span style="color:var(--err)">📄</span><span class="fi-name">${file.name}</span><span class="fi-size">${(file.size / 1024).toFixed(1)}KB</span><button class="fi-del" onclick="pdfFiles.splice(${i},1);renderPdfList()">✕</button></div>`).join("");
+}
+
+function pdfCompressSelected(event) {
+  addPdfCompressFile(event.target.files[0]);
+}
+
+function addPdfCompressFile(file) {
+  if (!file || (file.type !== "application/pdf" && !String(file.name || "").toLowerCase().endsWith(".pdf"))) {
+    toast("Select a PDF file", "warn");
+    return;
+  }
+  pdfCompressFile = file;
+  renderPdfCompressFile();
+}
+
+function renderPdfCompressFile() {
+  const list = qs("#pdfc-file-list");
+  if (!list) return;
+  if (!pdfCompressFile) {
+    list.innerHTML = "";
+    return;
+  }
+  list.innerHTML = `<div class="file-item"><span style="color:var(--o)">🗜️</span><span class="fi-name">${pdfCompressFile.name}</span><span class="fi-size">${formatBytes(pdfCompressFile.size)}</span><button class="fi-del" onclick="pdfCompressFile=null;renderPdfCompressFile()">✕</button></div>`;
 }
 
 async function mergePDFs() {
@@ -438,10 +471,12 @@ function i2pFilesSelected(event) { addI2pFiles([...event.target.files]); }
 
 function addI2pFiles(files) {
   files.filter(file => file.type.startsWith("image/")).forEach(file => i2pFiles.push(file));
-  qs("#i2p-file-list").innerHTML = i2pFiles.map((file, i) => `<div class="file-item"><span>🖼️</span><span class="fi-name">${file.name}</span><span class="fi-size">${(file.size / 1024).toFixed(1)}KB</span><button class="fi-del" onclick="i2pFiles.splice(${i},1);renderI2pList()">✕</button></div>`).join("");
+  renderI2pList();
 }
 
-function renderI2pList() { addI2pFiles([]); }
+function renderI2pList() {
+  qs("#i2p-file-list").innerHTML = i2pFiles.map((file, i) => `<div class="file-item"><span>🖼️</span><span class="fi-name">${file.name}</span><span class="fi-size">${(file.size / 1024).toFixed(1)}KB</span><button class="fi-del" onclick="i2pFiles.splice(${i},1);renderI2pList()">✕</button></div>`).join("");
+}
 
 async function imagesToPDF() {
   if (!i2pFiles.length) { toast("Add at least one image", "warn"); return; }
@@ -491,6 +526,104 @@ async function imagesToPDF() {
   } catch (error) {
     toast(`Error: ${error.message}`, "err");
   }
+}
+
+async function compressPDF() {
+  if (!pdfCompressFile) {
+    toast("Add a PDF file first", "warn");
+    return;
+  }
+
+  const button = qs("#pdfc-btn");
+  button.disabled = true;
+  button.textContent = "Compressing…";
+  setPb("pdfc-pb-fill", 0);
+
+  try {
+    if (!window.PDFLib) await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js");
+    if (!window.pdfjsLib) await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js");
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+    const startQuality = parseFloat(qs("#pdfc-quality").value) || 0.68;
+    const startScale = parseFloat(qs("#pdfc-scale").value) || 1;
+    const targetSize = parseFloat(qs("#pdfc-target-size").value);
+    const targetUnit = qs("#pdfc-target-unit").value || "KB";
+    const inputName = qs("#pdfc-name").value.trim() || "compressed.pdf";
+    if (!targetSize || targetSize <= 0) {
+      toast("Enter a valid target size", "warn");
+      button.disabled = false;
+      button.textContent = "🗜️ Compress PDF";
+      return;
+    }
+    const targetBytes = targetUnit === "MB" ? targetSize * 1024 * 1024 : targetSize * 1024;
+    const inputBytes = await pdfCompressFile.arrayBuffer();
+    const sourcePdf = await window.pdfjsLib.getDocument({ data: inputBytes }).promise;
+    const renderedPages = [];
+    for (let pageNumber = 1; pageNumber <= sourcePdf.numPages; pageNumber++) {
+      const page = await sourcePdf.getPage(pageNumber);
+      renderedPages.push(page);
+    }
+
+    let qualityHigh = Math.min(0.95, startQuality);
+    let qualityLow = 0.22;
+    let scale = startScale;
+    let bestMatch = null;
+
+    for (let attempt = 0; attempt < 7; attempt++) {
+      const quality = attempt === 0 ? qualityHigh : (qualityLow + qualityHigh) / 2;
+      const compressedBytes = await rebuildCompressedPdf(renderedPages, scale, quality, value => {
+        setPb("pdfc-pb-fill", Math.round(((attempt + value) / 7) * 100));
+      });
+      const diff = Math.abs(compressedBytes.byteLength - targetBytes);
+      if (!bestMatch || diff < bestMatch.diff) {
+        bestMatch = { bytes: compressedBytes, quality, scale, diff };
+      }
+      if (compressedBytes.byteLength > targetBytes) qualityHigh = quality - 0.04;
+      else qualityLow = quality + 0.04;
+      if (qualityHigh <= qualityLow + 0.01 && compressedBytes.byteLength > targetBytes && scale > 0.55) {
+        scale = Math.max(0.55, scale - 0.12);
+        qualityHigh = Math.min(0.9, startQuality);
+        qualityLow = 0.22;
+      }
+    }
+
+    const compressedBytes = bestMatch?.bytes;
+    if (!compressedBytes) throw new Error("Unable to compress this PDF");
+    const blob = new Blob([compressedBytes], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+    const result = qs("#pdfc-result");
+    result.style.display = "block";
+    result.innerHTML = `✅ Reduced from ${formatBytes(pdfCompressFile.size)} to ${formatBytes(blob.size)} · target ${formatBytes(targetBytes)}<br><a href="${url}" download="${inputName}">📥 Download ${inputName}</a>`;
+    toast("✅ PDF compressed", "ok");
+  } catch (error) {
+    toast(`Error: ${error.message}`, "err");
+  }
+
+  button.disabled = false;
+  button.textContent = "🗜️ Compress PDF";
+}
+
+async function rebuildCompressedPdf(sourcePages, scale, quality, onProgress) {
+  const outputPdf = await PDFLib.PDFDocument.create();
+  for (let index = 0; index < sourcePages.length; index++) {
+    const page = sourcePages[index];
+    const viewport = page.getViewport({ scale });
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d", { alpha: false });
+    canvas.width = Math.max(1, Math.floor(viewport.width));
+    canvas.height = Math.max(1, Math.floor(viewport.height));
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    await page.render({ canvasContext: context, viewport }).promise;
+
+    const jpgDataUrl = canvas.toDataURL("image/jpeg", quality);
+    const jpgBuffer = await fetch(jpgDataUrl).then(response => response.arrayBuffer());
+    const jpgImage = await outputPdf.embedJpg(jpgBuffer);
+    const pdfPage = outputPdf.addPage([jpgImage.width, jpgImage.height]);
+    pdfPage.drawImage(jpgImage, { x: 0, y: 0, width: jpgImage.width, height: jpgImage.height });
+    if (typeof onProgress === "function") onProgress((index + 1) / sourcePages.length);
+  }
+  return outputPdf.save();
 }
 
 function loadResizeImage(event) {
@@ -652,6 +785,13 @@ function loadScript(src) {
     script.onerror = reject;
     document.head.appendChild(script);
   });
+}
+
+function formatBytes(bytes) {
+  if (!bytes) return "0 B";
+  if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+  if (bytes >= 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${bytes} B`;
 }
 
 function toast(msg, type = "info") {
