@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Janaseva Kendram - CSC Operations</title>
-  <link rel="icon" type="image/png" href="logo.jpeg">
-  <link rel="apple-touch-icon" href="logo.jpeg">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -51,6 +51,9 @@
           <div class="sb-label">Tools</div>
           <div class="sb-item" data-view="pdf-merge" onclick="showView('pdf-merge')">
             <span class="sb-icon">📄</span><span>Merge PDF</span>
+          </div>
+          <div class="sb-item" data-view="pdf-compress" onclick="showView('pdf-compress')">
+            <span class="sb-icon">🗜️</span><span>Compress PDF</span>
           </div>
           <div class="sb-item" data-view="img-to-pdf" onclick="showView('img-to-pdf')">
             <span class="sb-icon">🖼️</span><span>Image → PDF</span>
@@ -101,13 +104,6 @@
                 <button class="btn btn-orange btn-sm ec" onclick="openCategoryEditor()">Add Category</button>
                 <button class="btn btn-ghost btn-sm ec" onclick="openJson()" id="edit-data-btn">Manage JSON</button>
               </div>
-            </div>
-
-            <div class="services-stats card margin-bottom">
-              <div class="service-stat"><span class="service-dot dot-green"></span><span class="service-stat-value" id="stat-categories">0</span><span>Categories</span></div>
-              <div class="service-stat"><span class="service-dot dot-blue"></span><span class="service-stat-value" id="stat-subcategories">0</span><span>Subcategories</span></div>
-              <div class="service-stat"><span class="service-dot dot-orange"></span><span class="service-stat-value" id="stat-links">0</span><span>Links</span></div>
-              <div class="service-stat"><span class="service-dot dot-gold"></span><span class="service-stat-value" id="stat-favourites">0</span><span>Favourites</span></div>
             </div>
 
             <div class="services-banner ec">
@@ -164,10 +160,11 @@
             <div class="services-top">
               <div>
                 <div class="page-title">Daily Income Tracker</div>
-                <div class="page-sub">Income, profit and expense tracking with Google Sheets sync <span id="income-sync-meta">· ready to sync</span></div>
+                <div class="page-sub">Income, profit and expense tracking backed by Firebase <span id="income-sync-meta">· connecting</span></div>
               </div>
               <div class="view-actions income-view-actions">
-                <button class="btn btn-ghost btn-sm" onclick="refreshIncomeData()">Refresh Data</button>
+                <button class="btn btn-ghost btn-sm" onclick="exportIncomeExcel()">Export Excel</button>
+                <button class="btn btn-ghost btn-sm" onclick="toggleIncomeAnalytics()">Analytics & Reports</button>
                 <button class="btn btn-ghost btn-sm" onclick="refreshIncomeData()">Reload</button>
               </div>
             </div>
@@ -211,7 +208,7 @@
               <div class="card income-stat-card">
                 <div class="income-stat-label">Total Profit</div>
                 <div class="income-stat-value" id="income-stat-all-profit">₹0</div>
-                <div class="income-stat-meta" id="income-stat-pending">0 pending sync</div>
+                <div class="income-stat-meta" id="income-stat-pending">0 records</div>
               </div>
             </div>
 
@@ -292,6 +289,49 @@
                     <tr><td colspan="9" class="empty-row">No transactions added yet</td></tr>
                   </tbody>
                 </table>
+              </div>
+            </div>
+
+            <div class="income-analytics-panel hidden" id="income-analytics-panel">
+              <div class="income-analytics-grid margin-bottom">
+                <div class="card income-chart-card income-chart-card-wide">
+                  <div class="income-chart-head">
+                    <div>
+                      <div class="service-block-title">7 Day Performance</div>
+                      <div class="service-block-subtitle">Received, profit and net income over the last seven days</div>
+                    </div>
+                    <div class="income-chart-legend">
+                      <span class="income-legend-item"><span class="income-legend-dot legend-blue"></span>Received</span>
+                      <span class="income-legend-item"><span class="income-legend-dot legend-green"></span>Profit</span>
+                      <span class="income-legend-item"><span class="income-legend-dot legend-gold"></span>Net</span>
+                    </div>
+                  </div>
+                  <div class="income-chart-canvas-wrap">
+                    <canvas id="income-trend-chart" class="income-chart-canvas"></canvas>
+                  </div>
+                </div>
+                <div class="card income-chart-card">
+                  <div class="income-chart-head compact">
+                    <div>
+                      <div class="service-block-title">6 Month Trend</div>
+                      <div class="service-block-subtitle">Profit vs expenses by month</div>
+                    </div>
+                  </div>
+                  <div class="income-chart-canvas-wrap short">
+                    <canvas id="income-monthly-chart" class="income-chart-canvas"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <div class="income-breakdown-grid">
+                <div class="card">
+                  <div class="card-title">Category Breakdown</div>
+                  <div class="income-breakdown-list" id="income-category-breakdown"></div>
+                </div>
+                <div class="card">
+                  <div class="card-title">Highlights</div>
+                  <div class="income-highlights-grid" id="income-highlights-grid"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -426,6 +466,76 @@
                 <div class="progress-bar" id="pdf-progress"><div class="pb-fill" id="pdf-pb-fill"></div></div>
                 <button class="btn btn-orange full-width margin-top-small" onclick="mergePDFs()" id="pdf-merge-btn">🔀 Merge PDFs</button>
                 <div class="tool-result margin-top-small hidden" id="pdf-result"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-view" id="view-pdf-compress">
+          <div class="page-title">🗜️ Compress PDF</div>
+          <div class="page-sub">Reduce PDF size by rebuilding pages as compressed images. Best for scanned documents and photo-heavy PDFs.</div>
+          <div class="grid2 tool-grid">
+            <div class="col">
+              <div class="card">
+                <div class="card-title">📂 Select PDF File</div>
+                <div class="drop-zone" id="pdfc-dz" onclick="qs('#pdfc-input').click()" ondragover="dzOver(event,'pdfc-dz')" ondragleave="dzLeave('pdfc-dz')" ondrop="dzDrop(event,'pdf-compress')">
+                  <div class="dz-icon">🗜️</div>
+                  <div class="dz-text">Click or drag one PDF file here</div>
+                  <div class="dz-sub">Best results on scanned or image-based PDFs</div>
+                </div>
+                <input type="file" id="pdfc-input" accept=".pdf,application/pdf" class="hidden-file" onchange="pdfCompressSelected(event)">
+                <div class="file-list" id="pdfc-file-list"></div>
+              </div>
+              <div class="card">
+                <div class="card-title">⚙️ Compression Settings</div>
+                <div class="grid2">
+                  <div>
+                    <label class="label">Target Size</label>
+                    <input class="inp" id="pdfc-target-size" type="number" min="1" value="500" placeholder="500">
+                  </div>
+                  <div>
+                    <label class="label">Unit</label>
+                    <select class="inp" id="pdfc-target-unit">
+                      <option value="KB" selected>KB</option>
+                      <option value="MB">MB</option>
+                    </select>
+                  </div>
+                </div>
+                <label class="label margin-top-small">Output Filename</label>
+                <input class="inp" id="pdfc-name" value="compressed.pdf">
+                <div class="grid2 margin-top-small">
+                  <div>
+                    <label class="label">Starting Quality</label>
+                    <select class="inp" id="pdfc-quality">
+                      <option value="0.82">High quality</option>
+                      <option value="0.68" selected>Balanced</option>
+                      <option value="0.55">Smaller file</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="label">Starting Scale</label>
+                    <select class="inp" id="pdfc-scale">
+                      <option value="1.3">Sharper</option>
+                      <option value="1" selected>Balanced</option>
+                      <option value="0.8">Smaller</option>
+                    </select>
+                  </div>
+                </div>
+                <p class="muted-copy">Set the file size you want. The tool will automatically reduce quality and render scale to get as close as possible.</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-title">📉 Compress</div>
+                <div class="help-text">
+                  1. Add a PDF file<br>
+                  2. Choose quality and render scale<br>
+                  3. Click Compress to build a smaller PDF<br><br>
+                  <span class="warn-text">⚠️ Large PDFs can take a little time because every page is re-rendered in your browser.</span>
+                </div>
+                <div class="progress-bar"><div class="pb-fill" id="pdfc-pb-fill"></div></div>
+                <button class="btn btn-orange full-width margin-top-small" onclick="compressPDF()" id="pdfc-btn">🗜️ Compress PDF</button>
+                <div class="tool-result margin-top-small hidden" id="pdfc-result"></div>
               </div>
             </div>
           </div>
