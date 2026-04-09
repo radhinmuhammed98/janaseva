@@ -66,7 +66,7 @@ function fixHeaderLabels() {
 function ensureLogoEverywhere() {
   const logo = document.querySelector('#logo-img');
   if (logo) {
-    logo.src = 'logo.png';
+    logo.src = 'logo.jpeg';
     logo.style.display = 'block';
   }
 }
