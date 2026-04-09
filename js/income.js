@@ -1,9 +1,6 @@
-const SHEETS_URL = "https://script.google.com/macros/s/AKfycbyMW85daXtEpqXdIZLlC2rNs3kJ63x7a7u4Y4oezBQ9cBd0ZMgIux-n3ciVU7r9a9mgKA/exec";
-const INCOME_STORAGE_KEY = "csc_income";
-
 let incomeTransactions = [];
-let incomeLastSyncAt = null;
-let incomeSyncInFlight = false;
+let incomeConnected = false;
+let incomeUnsubscribe = null;
 
 const INCOME_PRESETS = [
   { service: "Aadhaar Update", amount: 50, profit: 50, expense: 0, category: "Government ID" },
@@ -19,25 +16,19 @@ const INCOME_PRESETS = [
 ];
 
 function initIncomeView() {
-  loadIncomeState();
   renderIncomePresetChips();
   setIncomeFormDefaults();
   renderIncomeView();
-  hydrateIncomeFromRemote();
-}
 
-function loadIncomeState() {
-  try {
-    incomeTransactions = (JSON.parse(localStorage.getItem(INCOME_STORAGE_KEY)) || [])
-      .map(normalizeIncomeTransaction)
-      .sort(sortIncomeTransactions);
-  } catch {
-    incomeTransactions = [];
+  if (window.firebaseServices) {
+    loadFromFirebase();
+  } else {
+    window.addEventListener("firebase-ready", loadFromFirebase, { once: true });
+    window.addEventListener("firebase-missing-config", () => {
+      renderIncomeSyncMeta("Firebase config missing");
+      toast("Add your Firebase config to enable Daily Income", "warn");
+    }, { once: true });
   }
-}
-
-function saveIncomeState() {
-  localStorage.setItem(INCOME_STORAGE_KEY, JSON.stringify(incomeTransactions));
 }
 
 function setIncomeFormDefaults() {
@@ -50,15 +41,6 @@ function setIncomeFormDefaults() {
   if (timeInput && !timeInput.value) timeInput.value = toTimeInputValue(now);
   if (categoryInput && !categoryInput.value) categoryInput.value = "Government ID";
   if (expenseInput && !expenseInput.value) expenseInput.value = "0";
-}
-
-function getNowParts() {
-  const now = new Date();
-  return {
-    now,
-    date: formatStorageDate(now),
-    time: toTimeInputValue(now)
-  };
 }
 
 function toDateInputValue(date) {
@@ -125,8 +107,7 @@ function normalizeIncomeTransaction(item) {
     profit: Number.isNaN(profit) ? amount : profit,
     expense: Number.isNaN(expense) ? 0 : expense,
     note: String(item.note || "").trim(),
-    synced: item.synced !== false,
-    source: item.source || "local"
+    _firebaseKey: item._firebaseKey || ""
   };
 }
 
@@ -151,7 +132,7 @@ function renderIncomePresetChips() {
   const wrap = qs("#income-preset-chips");
   if (!wrap) return;
   wrap.innerHTML = INCOME_PRESETS.map((preset, index) => (
-    `<button class="btn btn-ghost btn-sm" onclick="applyIncomePreset(${index})">${escapeIncomeHtml(preset.service)} \u20B9${formatInr(preset.amount)}</button>`
+    `<button class="btn btn-ghost btn-sm" onclick="applyIncomePreset(${index})">${escapeIncomeHtml(preset.service)} ₹${formatInr(preset.amount)}</button>`
   )).join("");
 }
 
@@ -163,7 +144,7 @@ function applyIncomePreset(index) {
   qs("#income-profit").value = preset.profit;
   qs("#income-expense").value = preset.expense;
   qs("#income-category").value = preset.category;
-  if (qs("#income-service")) qs("#income-service").focus();
+  qs("#income-service")?.focus();
 }
 
 function getIncomeRangeFilter() {
@@ -199,7 +180,7 @@ function summariseTransactions(items) {
 function renderIncomeView() {
   renderIncomeStats();
   renderIncomeTable();
-  renderIncomeSyncMeta();
+  if (incomeConnected) renderIncomeSyncMeta("Live from Firebase");
 }
 
 function renderIncomeStats() {
@@ -208,19 +189,18 @@ function renderIncomeStats() {
   const monthSummary = summariseTransactions(getTransactionsForRange("month"));
   const yearSummary = summariseTransactions(getTransactionsForRange("year"));
   const allSummary = summariseTransactions(getTransactionsForRange("all"));
-  const pendingCount = incomeTransactions.filter(item => !item.synced).length;
 
-  setText("#income-stat-received", `\u20B9${formatInr(todaySummary.amount)}`);
-  setText("#income-stat-profit", `\u20B9${formatInr(todaySummary.profit)}`);
-  setText("#income-stat-expense", `\u20B9${formatInr(todaySummary.expense)}`);
-  setText("#income-stat-net", `\u20B9${formatInr(todaySummary.profit - todaySummary.expense)}`);
-  setText("#income-stat-month-profit", `\u20B9${formatInr(monthSummary.profit)}`);
-  setText("#income-stat-month-net", `\u20B9${formatInr(monthSummary.profit - monthSummary.expense)}`);
-  setText("#income-stat-year-profit", `\u20B9${formatInr(yearSummary.profit)}`);
-  setText("#income-stat-all-profit", `\u20B9${formatInr(allSummary.profit)}`);
+  setText("#income-stat-received", `₹${formatInr(todaySummary.amount)}`);
+  setText("#income-stat-profit", `₹${formatInr(todaySummary.profit)}`);
+  setText("#income-stat-expense", `₹${formatInr(todaySummary.expense)}`);
+  setText("#income-stat-net", `₹${formatInr(todaySummary.profit - todaySummary.expense)}`);
+  setText("#income-stat-month-profit", `₹${formatInr(monthSummary.profit)}`);
+  setText("#income-stat-month-net", `₹${formatInr(monthSummary.profit - monthSummary.expense)}`);
+  setText("#income-stat-year-profit", `₹${formatInr(yearSummary.profit)}`);
+  setText("#income-stat-all-profit", `₹${formatInr(allSummary.profit)}`);
   setText("#income-stat-month-meta", now.toLocaleDateString("en-IN", { month: "long", year: "numeric" }));
   setText("#income-stat-year-meta", String(now.getFullYear()));
-  setText("#income-stat-pending", `${pendingCount} pending sync`);
+  setText("#income-stat-pending", `${allSummary.count} transactions`);
 }
 
 function renderIncomeTable() {
@@ -238,40 +218,18 @@ function renderIncomeTable() {
       <td>${escapeIncomeHtml(item.time)}</td>
       <td style="font-weight:600">${escapeIncomeHtml(item.service)}</td>
       <td><span class="income-category-pill ${incomeCategoryClass(item.category)}">${escapeIncomeHtml(item.category)}</span></td>
-      <td style="font-family:var(--mono);font-weight:700">\u20B9${formatInr(item.amount)}</td>
-      <td style="font-family:var(--mono);font-weight:700">\u20B9${formatInr(item.profit)}</td>
-      <td style="font-family:var(--mono);font-weight:700">\u20B9${formatInr(item.expense)}</td>
-      <td>
-        ${item.synced
-          ? '<span class="income-status-ok">Synced</span>'
-          : `<span class="income-status-pending">Pending</span> <button class="mini-icon-btn" onclick="retryOneIncomeTransaction('${escapeJs(item.id)}')">Retry</button>`}
-      </td>
-      <td><button class="mini-icon-btn" onclick="deleteIncomeTransaction('${escapeJs(item.id)}')">Delete</button></td>
+      <td style="font-family:var(--mono);font-weight:700">₹${formatInr(item.amount)}</td>
+      <td style="font-family:var(--mono);font-weight:700">₹${formatInr(item.profit)}</td>
+      <td style="font-family:var(--mono);font-weight:700">₹${formatInr(item.expense)}</td>
+      <td><span class="income-status-ok">Live</span></td>
+      <td><button class="mini-icon-btn" onclick="deleteIncomeTransaction('${escapeJs(item._firebaseKey)}')">Delete</button></td>
     </tr>
   `).join("");
 }
 
-function renderIncomeSyncMeta() {
+function renderIncomeSyncMeta(message) {
   const el = qs("#income-sync-meta");
-  if (!el) return;
-  const pending = incomeTransactions.filter(item => !item.synced).length;
-  if (!incomeTransactions.length) {
-    el.textContent = "- ready to sync";
-    return;
-  }
-  if (incomeSyncInFlight) {
-    el.textContent = "- syncing with Google Sheets...";
-    return;
-  }
-  if (pending) {
-    el.textContent = `- ${pending} pending sync`;
-    return;
-  }
-  if (incomeLastSyncAt) {
-    el.textContent = `- last sync ${incomeLastSyncAt}`;
-    return;
-  }
-  el.textContent = "- all transactions synced";
+  if (el) el.textContent = `· ${message}`;
 }
 
 function incomeCategoryClass(category) {
@@ -310,6 +268,7 @@ async function addIncomeTransaction() {
 
   const profit = profitRaw === "" ? amount : Number(profitRaw);
   const expense = expenseRaw === "" ? 0 : Number(expenseRaw);
+
   if (Number.isNaN(profit) || profit < 0) {
     toast("Enter a valid profit", "warn");
     qs("#income-profit").focus();
@@ -331,23 +290,16 @@ async function addIncomeTransaction() {
     amount,
     profit,
     expense,
-    note,
-    synced: false,
-    source: "local"
+    note
   });
 
-  incomeTransactions.unshift(transaction);
-  incomeTransactions.sort(sortIncomeTransactions);
-  saveIncomeState();
-  renderIncomeView();
-  clearIncomeForm();
-
-  const synced = await syncIncomeTransaction(transaction);
-  transaction.synced = synced;
-  if (synced) incomeLastSyncAt = relativeNowLabel();
-  saveIncomeState();
-  renderIncomeView();
-  toast(synced ? "Transaction added and synced" : "Saved locally. Sync pending.", synced ? "ok" : "warn");
+  try {
+    await saveToFirebase(transaction);
+    clearIncomeForm();
+    toast("Transaction saved", "ok");
+  } catch (error) {
+    toast(`Firebase save failed: ${error.message}`, "err");
+  }
 }
 
 function clearIncomeForm() {
@@ -360,168 +312,70 @@ function clearIncomeForm() {
   setIncomeFormDefaults();
 }
 
-async function syncIncomeTransaction(transaction) {
-  if (!isSheetsConfigured()) return false;
-
-  try {
-    const formData = new FormData();
-
-    formData.append("id", transaction.id);
-    formData.append("date", transaction.date);
-    formData.append("time", transaction.time);
-    formData.append("service", transaction.service);
-    formData.append("category", transaction.category);
-    formData.append("amount", transaction.amount);
-    formData.append("profit", transaction.profit);
-    formData.append("expense", transaction.expense);
-    formData.append("note", transaction.note);
-
-    await fetch(SHEETS_URL, {
-      method: "POST",
-      body: formData
-    });
-
-    return true;
-
-  } catch (err) {
-    console.error("Sync error:", err);
-    return false;
-  }
-}
-
-async function syncAllIncomeTransactions() {
-  const pending = incomeTransactions.filter(item => !item.synced);
-  if (!pending.length) {
-    renderIncomeSyncMeta();
-    return;
-  }
-
-  incomeSyncInFlight = true;
-  renderIncomeSyncMeta();
-  let syncedCount = 0;
-  for (const item of pending) {
-    const ok = await syncIncomeTransaction(item);
-    if (ok) {
-      item.synced = true;
-      syncedCount += 1;
-    }
-  }
-  incomeSyncInFlight = false;
-  if (syncedCount) incomeLastSyncAt = relativeNowLabel();
-  incomeTransactions.sort(sortIncomeTransactions);
-  saveIncomeState();
-  renderIncomeView();
-  if (syncedCount) toast(`${syncedCount} pending transaction(s) synced`, "ok");
-}
-
-function retryPendingIncomeTransactions() {
-  return syncAllIncomeTransactions();
-}
-
-function retryOneIncomeTransaction(id) {
-  const item = incomeTransactions.find(entry => entry.id === id);
-  if (!item) return;
-  syncIncomeTransaction(item).then(ok => {
-    item.synced = ok;
-    if (ok) incomeLastSyncAt = relativeNowLabel();
-    saveIncomeState();
-    renderIncomeView();
-    toast(ok ? "Transaction synced" : "Still pending", ok ? "ok" : "warn");
+async function saveToFirebase(transaction) {
+  const services = getFirebaseServices();
+  const incomeRef = services.ref(services.db, "income");
+  await services.push(incomeRef, {
+    id: transaction.id,
+    date: transaction.date,
+    time: transaction.time,
+    service: transaction.service,
+    category: transaction.category,
+    amount: transaction.amount,
+    profit: transaction.profit,
+    expense: transaction.expense,
+    note: transaction.note
   });
 }
 
-function deleteIncomeTransaction(id) {
-  incomeTransactions = incomeTransactions.filter(item => item.id !== id);
-  saveIncomeState();
-  renderIncomeView();
-  toast("Transaction deleted locally", "info");
-}
-
-async function fetchIncomeTransactionsFromSheets(showToast = false) {
-  if (!isSheetsConfigured()) return;
-  try {
-    incomeSyncInFlight = true;
-    renderIncomeSyncMeta();
-    const response = await fetch(SHEETS_URL, { method: "GET" });
-    if (!response.ok) throw new Error("Fetch failed");
-    const payload = await response.json();
-    const remoteRows = extractSheetRows(payload).map(row => normalizeIncomeTransaction({
-      id: row.id || createSyntheticIncomeId(row),
-      date: row.date,
-      time: row.time,
-      service: row.service,
-      category: row.category,
-      amount: row.amount,
-      profit: row.profit,
-      expense: row.expense,
-      note: row.note,
-      synced: true,
-      source: "sheet"
-    }));
-
-    mergeIncomeTransactions(remoteRows);
-    incomeLastSyncAt = relativeNowLabel();
-    saveIncomeState();
-    renderIncomeView();
-    if (showToast) toast(`Fetched ${remoteRows.length} row(s) from Google Sheets`, "ok");
-  } catch {
-    if (showToast) toast("Could not fetch Google Sheets data", "warn");
-  } finally {
-    incomeSyncInFlight = false;
-    renderIncomeSyncMeta();
+function loadFromFirebase() {
+  const services = getFirebaseServices();
+  const incomeRef = services.ref(services.db, "income");
+  if (typeof incomeUnsubscribe === "function") {
+    incomeUnsubscribe();
+    incomeUnsubscribe = null;
   }
-}
 
-function extractSheetRows(payload) {
-  if (Array.isArray(payload)) return payload;
-  if (Array.isArray(payload?.data)) return payload.data;
-  if (Array.isArray(payload?.rows)) return payload.rows;
-  if (Array.isArray(payload?.items)) return payload.items;
-  return [];
-}
-
-function mergeIncomeTransactions(remoteRows) {
-  const byKey = new Map();
-  incomeTransactions.forEach(item => byKey.set(incomeUniqueKey(item), item));
-  remoteRows.forEach(item => {
-    const key = incomeUniqueKey(item);
-    const existing = byKey.get(key);
-    if (existing) {
-      existing.synced = true;
-      existing.amount = item.amount;
-      existing.profit = item.profit;
-      existing.expense = item.expense;
-      existing.note = item.note;
+  incomeUnsubscribe = services.onValue(incomeRef, snapshot => {
+    const data = snapshot.val();
+    if (!data) {
+      incomeTransactions = [];
     } else {
-      incomeTransactions.push(item);
-      byKey.set(key, item);
+      incomeTransactions = Object.entries(data)
+        .map(([key, value]) => normalizeIncomeTransaction({ ...value, _firebaseKey: key }))
+        .sort(sortIncomeTransactions);
     }
+
+    incomeConnected = true;
+    renderIncomeView();
+  }, error => {
+    incomeConnected = false;
+    renderIncomeSyncMeta("Firebase connection error");
+    toast(`Firebase load failed: ${error.message}`, "err");
   });
-  incomeTransactions = incomeTransactions
-    .map(normalizeIncomeTransaction)
-    .sort(sortIncomeTransactions);
 }
 
-function incomeUniqueKey(item) {
-  return item.id || createSyntheticIncomeId(item);
+async function deleteIncomeTransaction(firebaseKey) {
+  if (!firebaseKey) return;
+  const services = getFirebaseServices();
+  try {
+    await services.remove(services.ref(services.db, `income/${firebaseKey}`));
+    toast("Transaction deleted", "info");
+  } catch (error) {
+    toast(`Delete failed: ${error.message}`, "err");
+  }
 }
 
-async function hydrateIncomeFromRemote() {
-  await fetchIncomeTransactionsFromSheets(false);
-  await syncAllIncomeTransactions();
+function refreshIncomeData() {
+  renderIncomeSyncMeta("Refreshing Firebase data...");
+  loadFromFirebase();
 }
 
-function isSheetsConfigured() {
-  return !!SHEETS_URL && SHEETS_URL !== "PASTE_YOUR_WEB_APP_URL_HERE";
-}
-
-function relativeNowLabel() {
-  return new Date().toLocaleString("en-IN", {
-    day: "2-digit",
-    month: "short",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
+function getFirebaseServices() {
+  if (!window.firebaseServices) {
+    throw new Error("Firebase is not initialized");
+  }
+  return window.firebaseServices;
 }
 
 function escapeIncomeHtml(value) {
