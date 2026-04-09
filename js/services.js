@@ -158,10 +158,14 @@ function renderStats() {
   const summaries = categorySummaries();
   const subcategories = summaries.reduce((sum, item) => sum + item.subcategoryCount, 0);
   const links = summaries.reduce((sum, item) => sum + item.linkCount, 0);
-  qs("#stat-categories").textContent = summaries.length;
-  qs("#stat-subcategories").textContent = subcategories;
-  qs("#stat-links").textContent = links;
-  qs("#stat-favourites").textContent = favouriteLinks.length;
+  const statCategories = qs("#stat-categories");
+  const statSubcategories = qs("#stat-subcategories");
+  const statLinks = qs("#stat-links");
+  const statFavourites = qs("#stat-favourites");
+  if (statCategories) statCategories.textContent = summaries.length;
+  if (statSubcategories) statSubcategories.textContent = subcategories;
+  if (statLinks) statLinks.textContent = links;
+  if (statFavourites) statFavourites.textContent = favouriteLinks.length;
 }
 
 function renderSearchResults(query = "") {
