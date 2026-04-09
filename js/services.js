@@ -374,3 +374,4 @@ onGlobalSearch = function (value) {
     renderSearchResults(value);
   }, 80);
 };
+
