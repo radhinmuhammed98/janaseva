@@ -1,28 +1,6 @@
 const LOGO_DATA_URL = "logo.jpeg";
 
 const DEFAULT_DATA = {
-  "Canva": {
-    "_icon": "🌆",
-    "_color": "#00a1d6",
-    "_links": [
-      {
-        "name": "ID Card Photo (8 copies)",
-        "url": "https://www.canva.com/design/DAHEFv8xyUk/PJHbu0reSSrMq2C1TMalQw/edit",
-        "desc": "Print 8 copies of Passport size photo",
-        "keywords": [
-          "passport"
-        ]
-      },
-      {
-        "name": "ID Photo (4 Copies)",
-        "url": "https://www.canva.com/design/DAHGc9B_fr0/ChLgCpFPAB1_U3xLNNw7uQ/edit?ui=e30&referrer=https%3A%2F%2Fwww.canva.com%2Fdesign%2FDAHFC_CtJ20%2Fqj65x60JNnXb_gQF4WLEvQ%2Fedit",
-        "desc": "Print 4 copies of Passport size photo",
-        "keywords": [
-          "passport size photo"
-        ]
-      }
-    ]
-  },
   "Certificates": {
     "_icon": "🖼",
     "_color": "#aeff00",
@@ -406,6 +384,28 @@ const DEFAULT_DATA = {
           "MSME",
           "Udyam",
           "card"
+        ]
+      }
+    ]
+  },
+  "Canva": {
+    "_icon": "🌆",
+    "_color": "#00a1d6",
+    "_links": [
+      {
+        "name": "ID Card Photo (8 copies)",
+        "url": "https://www.canva.com/design/DAHEFv8xyUk/PJHbu0reSSrMq2C1TMalQw/edit",
+        "desc": "Print 8 copies of Passport size photo",
+        "keywords": [
+          "passport"
+        ]
+      },
+      {
+        "name": "ID Photo (4 Copies)",
+        "url": "https://www.canva.com/design/DAHGc9B_fr0/ChLgCpFPAB1_U3xLNNw7uQ/edit?ui=e30&referrer=https%3A%2F%2Fwww.canva.com%2Fdesign%2FDAHFC_CtJ20%2Fqj65x60JNnXb_gQF4WLEvQ%2Fedit",
+        "desc": "Print 4 copies of Passport size photo",
+        "keywords": [
+          "passport size photo"
         ]
       }
     ]
