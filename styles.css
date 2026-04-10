@@ -191,6 +191,10 @@ input:focus,textarea:focus,select:focus{border-color:var(--o);box-shadow:0 0 0 3
 .drop-zone .dz-icon{font-size:36px;margin-bottom:8px;opacity:.6}
 .drop-zone .dz-text{font-size:13px;color:var(--mu);margin-bottom:4px}
 .drop-zone .dz-sub{font-size:11px;color:var(--mu2)}
+.drop-zone-compact{padding:24px;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.drop-zone-compact .dz-icon{font-size:30px;margin-bottom:4px}
+.drop-zone-compact .dz-text{font-size:13px;color:var(--tx2)}
+.drop-zone-compact .dz-sub{font-size:11px;color:var(--mu2)}
 .file-list{display:flex;flex-direction:column;gap:6px;margin-top:10px}
 .file-item{display:flex;align-items:center;gap:8px;background:var(--surf2);border:1px solid var(--bdr);border-radius:var(--r);padding:7px 10px}
 .fi-name{flex:1;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
