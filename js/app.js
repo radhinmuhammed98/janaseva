@@ -776,6 +776,7 @@ function resetDataConfirm() {
 
 function qs(selector) { return document.querySelector(selector); }
 function qsa(selector) { return document.querySelectorAll(selector); }
+function setText(selector, value) { const el = qs(selector); if (el) el.textContent = value; }
 function showOv(id) { qs(`#${id}`).classList.add("on"); }
 function closeOv(id) { qs(`#${id}`).classList.remove("on"); }
 function setPb(id, value) { const el = qs(`#${id}`); if (el) el.style.width = `${value}%`; }
@@ -842,3 +843,4 @@ document.addEventListener("DOMContentLoaded", boot);
 
 
 
+// test
