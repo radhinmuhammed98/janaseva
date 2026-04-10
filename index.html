@@ -426,10 +426,10 @@
             <div class="col">
               <div class="card">
                 <div class="card-title">📂 Select PDF File</div>
-                <div class="drop-zone" id="pdfc-dz" onclick="qs('#pdfc-input').click()" ondragover="dzOver(event,'pdfc-dz')" ondragleave="dzLeave('pdfc-dz')" ondrop="dzDrop(event,'pdf-compress')">
+                <div class="drop-zone drop-zone-compact" id="pdfc-dz" onclick="qs('#pdfc-input').click()" ondragover="dzOver(event,'pdfc-dz')" ondragleave="dzLeave('pdfc-dz')" ondrop="dzDrop(event,'pdf-compress')">
                   <div class="dz-icon">🗜️</div>
-                  <div class="dz-text">Click or drag one PDF file here</div>
-                  <div class="dz-sub">Best results on scanned or image-based PDFs</div>
+                  <div class="dz-text">Drop a PDF here</div>
+                  <div class="dz-sub">Single file · works best for scanned PDFs</div>
                 </div>
                 <input type="file" id="pdfc-input" accept=".pdf,application/pdf" class="hidden-file" onchange="pdfCompressSelected(event)">
                 <div class="file-list" id="pdfc-file-list"></div>
@@ -1020,6 +1020,8 @@
   <script src="js/services-editor.js"></script>
 </body>
 </html>
+
+
 
 
 
