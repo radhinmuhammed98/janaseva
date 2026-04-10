@@ -111,6 +111,9 @@ function showView(id) {
   if (id === "income" && typeof renderIncomeView === "function") {
     requestAnimationFrame(() => requestAnimationFrame(() => renderIncomeView()));
   }
+  if (id === "analytics" && typeof renderAnalyticsView === "function") {
+    requestAnimationFrame(() => requestAnimationFrame(() => renderAnalyticsView()));
+  }
 }
 
 function renderServices() {
