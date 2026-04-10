@@ -74,6 +74,9 @@
           <div class="sb-item" data-view="income" onclick="showView('income')">
             <span class="sb-icon">💰</span><span>Daily Income</span>
           </div>
+          <div class="sb-item" data-view="analytics" onclick="showView('analytics')">
+            <span class="sb-icon">📊</span><span>Analytics</span>
+          </div>
         </div>
         <div class="sb-divider"></div>
         <div class="sb-section">
@@ -159,179 +162,124 @@
           <div class="income-shell">
             <div class="services-top">
               <div>
-                <div class="page-title">Daily Income Tracker</div>
-                <div class="page-sub">Income, profit and expense tracking backed by Firebase <span id="income-sync-meta">· connecting</span></div>
+                <div class="page-title">Income + Expense Dashboard</div>
+                <div class="page-sub">Minimal daily view with advanced reports hidden behind the Reports panel <span id="income-sync-meta">· connecting</span></div>
               </div>
-              <div class="view-actions income-view-actions">
-                <button class="btn btn-ghost btn-sm" onclick="exportIncomeExcel()">Export Excel</button>
-                <button class="btn btn-ghost btn-sm" onclick="toggleIncomeAnalytics()">Analytics & Reports</button>
-                <button class="btn btn-ghost btn-sm" onclick="refreshIncomeData()">Reload</button>
+              <div class="view-actions income-action-bar">
+                <button class="btn btn-green btn-sm" onclick="openIncomeModal()">+ Income</button>
+                <button class="btn btn-orange btn-sm" onclick="openExpenseModal()">+ Expense</button>
+                <button class="btn btn-ghost btn-sm" onclick="openReportsPanel()">Reports</button>
+                <button class="btn btn-ghost btn-sm" onclick="exportIncomeCsv()">Export</button>
               </div>
             </div>
 
-            <div class="income-stats-grid margin-bottom">
+            <div class="income-summary-grid margin-bottom">
               <div class="card income-stat-card">
-                <div class="income-stat-label">Total Received Today</div>
-                <div class="income-stat-value" id="income-stat-received">₹0</div>
-                <div class="income-stat-meta">Today</div>
-              </div>
-              <div class="card income-stat-card">
-                <div class="income-stat-label">Profit Today</div>
-                <div class="income-stat-value" id="income-stat-profit">₹0</div>
-                <div class="income-stat-meta">Actual earning</div>
-              </div>
-              <div class="card income-stat-card">
-                <div class="income-stat-label">Expenses Today</div>
-                <div class="income-stat-value" id="income-stat-expense">₹0</div>
-                <div class="income-stat-meta">Today</div>
-              </div>
-              <div class="card income-stat-card">
-                <div class="income-stat-label">Net Income Today</div>
-                <div class="income-stat-value" id="income-stat-net">₹0</div>
+                <div class="income-stat-label">Net Today</div>
+                <div class="income-stat-value" id="sum-net-today">₹0</div>
                 <div class="income-stat-meta">Profit - Expense</div>
               </div>
               <div class="card income-stat-card">
-                <div class="income-stat-label">Profit This Month</div>
-                <div class="income-stat-value" id="income-stat-month-profit">₹0</div>
-                <div class="income-stat-meta" id="income-stat-month-meta">Current month</div>
+                <div class="income-stat-label">Income Today</div>
+                <div class="income-stat-value" id="sum-income-today">₹0</div>
+                <div class="income-stat-meta">Total received</div>
+              </div>
+              <div class="card income-stat-card">
+                <div class="income-stat-label">Expense Today</div>
+                <div class="income-stat-value" id="sum-expense-today">₹0</div>
+                <div class="income-stat-meta">All spending</div>
               </div>
               <div class="card income-stat-card">
                 <div class="income-stat-label">Net This Month</div>
-                <div class="income-stat-value" id="income-stat-month-net">₹0</div>
-                <div class="income-stat-meta">Profit - Expense</div>
-              </div>
-              <div class="card income-stat-card">
-                <div class="income-stat-label">Profit This Year</div>
-                <div class="income-stat-value" id="income-stat-year-profit">₹0</div>
-                <div class="income-stat-meta" id="income-stat-year-meta">Current year</div>
-              </div>
-              <div class="card income-stat-card">
-                <div class="income-stat-label">Total Profit</div>
-                <div class="income-stat-value" id="income-stat-all-profit">₹0</div>
-                <div class="income-stat-meta" id="income-stat-pending">0 records</div>
-              </div>
-            </div>
-
-            <div class="card margin-bottom">
-              <div class="card-title">Add Transaction</div>
-              <div class="income-form-grid">
-                <div class="income-form-span income-field-service">
-                  <label class="label">Service / Description</label>
-                  <input class="inp" id="income-service" placeholder="e.g. Aadhaar Update">
-                </div>
-                <div>
-                  <label class="label">Amount (₹)</label>
-                  <input class="inp" id="income-amount" type="number" min="0" step="0.01" placeholder="0.00">
-                </div>
-                <div>
-                  <label class="label">Profit (₹)</label>
-                  <input class="inp" id="income-profit" type="number" min="0" step="0.01" placeholder="Defaults to amount">
-                </div>
-                <div>
-                  <label class="label">Expense (₹)</label>
-                  <input class="inp" id="income-expense" type="number" min="0" step="0.01" value="0" placeholder="0.00">
-                </div>
-                <div>
-                  <label class="label">Category</label>
-                  <select class="inp" id="income-category">
-                    <option>Government ID</option>
-                    <option>eDistrict</option>
-                    <option>Ration Card</option>
-                    <option>Parivahan</option>
-                    <option>Taxes</option>
-                    <option>Bill Payment</option>
-                    <option>Printing</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="label">Date</label>
-                  <input class="inp" id="income-date" type="date">
-                </div>
-                <div>
-                  <label class="label">Time</label>
-                  <input class="inp" id="income-time" type="time">
-                </div>
-                <div class="income-form-span income-note-wrap">
-                  <label class="label">Note</label>
-                  <input class="inp" id="income-note" placeholder="Optional note">
-                </div>
-                <div class="income-add-wrap">
-                  <button class="btn btn-green" onclick="addIncomeTransaction()">Add Transaction</button>
-                </div>
-              </div>
-              <div class="margin-top-small">
-                <div class="label chip-label">Quick Add</div>
-                <div class="chip-row" id="income-preset-chips"></div>
+                <div class="income-stat-value" id="sum-net-month">₹0</div>
+                <div class="income-stat-meta" id="sum-net-month-meta">Current month</div>
               </div>
             </div>
 
             <div class="card">
               <div class="card-title">Transactions
                 <div class="income-table-actions ml-auto">
-                  <select class="inp income-filter-select" id="income-range-filter" onchange="renderIncomeView()">
+                  <select class="inp income-filter-select" id="income-time-filter" onchange="renderIncomeTable()">
                     <option value="today">Today</option>
+                    <option value="week">This Week</option>
                     <option value="month">This Month</option>
-                    <option value="year">This Year</option>
                     <option value="all">All Time</option>
                   </select>
-                  <button class="btn btn-ghost btn-sm" onclick="refreshIncomeData()">Reload</button>
+                  <select class="inp income-filter-select" id="income-type-filter" onchange="renderIncomeTable()">
+                    <option value="all">All Types</option>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                  </select>
                 </div>
               </div>
               <div class="table-scroll">
                 <table class="bill-table income-table">
                   <thead>
                     <tr>
-                      <th>Date</th><th>Time</th><th>Service</th><th>Category</th><th>Amount</th><th>Profit</th><th>Expense</th><th>Sync Status</th><th></th>
+                      <th>Date</th>
+                      <th>Type</th>
+                      <th>Name</th>
+                      <th>Category</th>
+                      <th>Amount</th>
+                      <th>Profit</th>
+                      <th>Net</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody id="income-tbody">
-                    <tr><td colspan="9" class="empty-row">No transactions added yet</td></tr>
+                    <tr><td colspan="8" class="empty-row">No transactions added yet</td></tr>
                   </tbody>
                 </table>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div class="income-analytics-panel hidden" id="income-analytics-panel">
-              <div class="income-analytics-grid margin-bottom">
-                <div class="card income-chart-card income-chart-card-wide">
-                  <div class="income-chart-head">
-                    <div>
-                      <div class="service-block-title">7 Day Performance</div>
-                      <div class="service-block-subtitle">Received, profit and net income over the last seven days</div>
-                    </div>
-                    <div class="income-chart-legend">
-                      <span class="income-legend-item"><span class="income-legend-dot legend-blue"></span>Received</span>
-                      <span class="income-legend-item"><span class="income-legend-dot legend-green"></span>Profit</span>
-                      <span class="income-legend-item"><span class="income-legend-dot legend-gold"></span>Net</span>
-                    </div>
-                  </div>
-                  <div class="income-chart-canvas-wrap">
-                    <canvas id="income-trend-chart" class="income-chart-canvas"></canvas>
+        <div class="tool-view" id="view-analytics">
+          <div class="income-shell">
+            <div class="services-top">
+              <div>
+                <div class="page-title">Analytics</div>
+                <div class="page-sub">Monthly profit, category insights, and trends</div>
+              </div>
+              <div class="view-actions">
+                <button class="btn btn-ghost btn-sm" onclick="openReportsPanel()">Reports</button>
+              </div>
+            </div>
+
+            <div class="income-analytics-grid margin-bottom">
+              <div class="card income-chart-card income-chart-card-wide">
+                <div class="income-chart-head">
+                  <div>
+                    <div class="service-block-title">Income Trend</div>
+                    <div class="service-block-subtitle">Monthly income movement</div>
                   </div>
                 </div>
-                <div class="card income-chart-card">
-                  <div class="income-chart-head compact">
-                    <div>
-                      <div class="service-block-title">6 Month Trend</div>
-                      <div class="service-block-subtitle">Profit vs expenses by month</div>
-                    </div>
-                  </div>
-                  <div class="income-chart-canvas-wrap short">
-                    <canvas id="income-monthly-chart" class="income-chart-canvas"></canvas>
-                  </div>
+                <div class="income-chart-canvas-wrap">
+                  <canvas id="analytics-income-trend" class="income-chart-canvas"></canvas>
                 </div>
               </div>
+              <div class="card income-chart-card">
+                <div class="income-chart-head compact">
+                  <div>
+                    <div class="service-block-title">Expense Trend</div>
+                    <div class="service-block-subtitle">Monthly expense totals</div>
+                  </div>
+                </div>
+                <div class="income-chart-canvas-wrap short">
+                  <canvas id="analytics-expense-trend" class="income-chart-canvas"></canvas>
+                </div>
+              </div>
+            </div>
 
-              <div class="income-breakdown-grid">
-                <div class="card">
-                  <div class="card-title">Category Breakdown</div>
-                  <div class="income-breakdown-list" id="income-category-breakdown"></div>
-                </div>
-                <div class="card">
-                  <div class="card-title">Highlights</div>
-                  <div class="income-highlights-grid" id="income-highlights-grid"></div>
-                </div>
+            <div class="income-breakdown-grid">
+              <div class="card">
+                <div class="card-title">Monthly Profit Summary</div>
+                <div class="income-breakdown-list" id="analytics-monthly-summary"></div>
+              </div>
+              <div class="card">
+                <div class="card-title">Expense Categories</div>
+                <div class="income-breakdown-list" id="analytics-expense-breakdown"></div>
               </div>
             </div>
           </div>
@@ -867,6 +815,197 @@
       <div class="mf">
         <button class="btn btn-ghost" onclick="closeOv('service-editor-ov')">Cancel</button>
         <button class="btn btn-green" onclick="saveServiceEditor()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ov" id="income-ov">
+    <div class="modal modal-wide">
+      <div class="mh">
+        <span class="mt">Add Income</span>
+        <button class="mx" onclick="closeOv('income-ov')">✕</button>
+      </div>
+      <div class="mb">
+        <div class="grid2">
+          <div class="service-editor-group">
+            <label class="label">Service</label>
+            <input class="inp" id="income-modal-name" placeholder="e.g. Aadhaar Update">
+          </div>
+          <div class="service-editor-group">
+            <label class="label">Amount (₹)</label>
+            <input class="inp" id="income-modal-amount" type="number" min="0" step="0.01" placeholder="0.00">
+          </div>
+        </div>
+        <div class="grid2 margin-top-small">
+          <div class="service-editor-group">
+            <label class="label">Profit (₹)</label>
+            <input class="inp" id="income-modal-profit" type="number" min="0" step="0.01" placeholder="Defaults to amount">
+          </div>
+          <div class="service-editor-group">
+            <label class="label">Category</label>
+            <select class="inp" id="income-modal-category">
+              <option>Government ID</option>
+              <option>eDistrict</option>
+              <option>Ration Card</option>
+              <option>Parivahan</option>
+              <option>Taxes</option>
+              <option>Bill Payment</option>
+              <option>Printing</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid2 margin-top-small">
+          <div class="service-editor-group">
+            <label class="label">Date</label>
+            <input class="inp" id="income-modal-date" type="date">
+          </div>
+          <div class="service-editor-group">
+            <label class="label">Note</label>
+            <input class="inp" id="income-modal-note" placeholder="Optional note">
+          </div>
+        </div>
+      </div>
+      <div class="mf">
+        <button class="btn btn-ghost" onclick="closeOv('income-ov')">Cancel</button>
+        <button class="btn btn-green" onclick="saveIncomeModal()">Save Income</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ov" id="expense-ov">
+    <div class="modal modal-wide">
+      <div class="mh">
+        <span class="mt">Add Expense</span>
+        <button class="mx" onclick="closeOv('expense-ov')">✕</button>
+      </div>
+      <div class="mb">
+        <div class="grid2">
+          <div class="service-editor-group">
+            <label class="label">Expense Name</label>
+            <input class="inp" id="expense-modal-name" placeholder="e.g. Paper, Rent, Internet">
+          </div>
+          <div class="service-editor-group">
+            <label class="label">Amount (₹)</label>
+            <input class="inp" id="expense-modal-amount" type="number" min="0" step="0.01" placeholder="0.00">
+          </div>
+        </div>
+        <div class="grid2 margin-top-small">
+          <div class="service-editor-group">
+            <label class="label">Category</label>
+            <select class="inp" id="expense-modal-category">
+              <option>Equipment</option>
+              <option>Rent</option>
+              <option>Consumables</option>
+              <option>Electricity</option>
+              <option>Misc</option>
+            </select>
+          </div>
+          <div class="service-editor-group">
+            <label class="label">Date</label>
+            <input class="inp" id="expense-modal-date" type="date">
+          </div>
+        </div>
+        <div class="service-editor-group margin-top-small">
+          <label class="label">Note</label>
+          <input class="inp" id="expense-modal-note" placeholder="Optional note">
+        </div>
+      </div>
+      <div class="mf">
+        <button class="btn btn-ghost" onclick="closeOv('expense-ov')">Cancel</button>
+        <button class="btn btn-orange" onclick="saveExpenseModal()">Save Expense</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ov" id="reports-ov">
+    <div class="modal modal-wide">
+      <div class="mh">
+        <span class="mt">Reports & Analytics</span>
+        <button class="mx" onclick="closeOv('reports-ov')">✕</button>
+      </div>
+      <div class="mb">
+        <div class="grid2">
+          <div class="service-editor-group">
+            <label class="label">Range</label>
+            <select class="inp" id="report-range" onchange="renderReports()">
+              <option value="today">Today</option>
+              <option value="week">This Week</option>
+              <option value="month">This Month</option>
+              <option value="year">This Year</option>
+              <option value="custom">Custom Range</option>
+            </select>
+          </div>
+          <div class="service-editor-group">
+            <label class="label">Custom Range</label>
+            <div style="display:flex;gap:8px">
+              <input class="inp" id="report-start" type="date">
+              <input class="inp" id="report-end" type="date">
+            </div>
+          </div>
+        </div>
+
+        <div class="income-summary-grid margin-top-small">
+          <div class="card income-stat-card">
+            <div class="income-stat-label">Total Income</div>
+            <div class="income-stat-value" id="report-total-income">₹0</div>
+            <div class="income-stat-meta">Selected range</div>
+          </div>
+          <div class="card income-stat-card">
+            <div class="income-stat-label">Total Expense</div>
+            <div class="income-stat-value" id="report-total-expense">₹0</div>
+            <div class="income-stat-meta">Selected range</div>
+          </div>
+          <div class="card income-stat-card">
+            <div class="income-stat-label">Net Profit</div>
+            <div class="income-stat-value" id="report-net-profit">₹0</div>
+            <div class="income-stat-meta">Income - Expense</div>
+          </div>
+          <div class="card income-stat-card">
+            <div class="income-stat-label">Transactions</div>
+            <div class="income-stat-value" id="report-count">0</div>
+            <div class="income-stat-meta">Records</div>
+          </div>
+        </div>
+
+        <div class="income-analytics-grid margin-top-small">
+          <div class="card income-chart-card income-chart-card-wide">
+            <div class="income-chart-head">
+              <div>
+                <div class="service-block-title">Income vs Expense</div>
+                <div class="service-block-subtitle">Daily totals</div>
+              </div>
+            </div>
+            <div class="income-chart-canvas-wrap">
+              <canvas id="report-income-expense" class="income-chart-canvas"></canvas>
+            </div>
+          </div>
+          <div class="card income-chart-card">
+            <div class="income-chart-head compact">
+              <div>
+                <div class="service-block-title">Net Trend</div>
+                <div class="service-block-subtitle">Daily net profit</div>
+              </div>
+            </div>
+            <div class="income-chart-canvas-wrap short">
+              <canvas id="report-net-trend" class="income-chart-canvas"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="income-breakdown-grid margin-top-small">
+          <div class="card">
+            <div class="card-title">Daily Totals</div>
+            <div class="income-breakdown-list" id="report-daily-totals"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Monthly Totals</div>
+            <div class="income-breakdown-list" id="report-monthly-totals"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mf">
+        <button class="btn btn-ghost" onclick="closeOv('reports-ov')">Close</button>
       </div>
     </div>
   </div>
