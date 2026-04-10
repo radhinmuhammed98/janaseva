@@ -490,7 +490,7 @@ const DEFAULT_DATA = {
         ]
       }
     ],
-    "Driving Licence": [
+    "Others": [
       {
         "name": "License Related Services",
         "url": "https://sarathi.parivahan.gov.in/",
@@ -501,17 +501,18 @@ const DEFAULT_DATA = {
           "sarathi status",
           "track dl"
         ]
-      }
-    ],
-    "Vehicle Registration": [
+      },
       {
         "name": "Vehicle Related Services",
-        "url": "https://vahan.parivahan.gov.in/vahanservice/vahan/ui/statevalidation/homepage.xhtml?statecd=Mzc2MzM2MzAzNjY0MzIzODM3NjIzNjY0MzY2MjM3NGI0Yw==",
+        "url": "https://vahan.parivahan.gov.in/",
         "desc": "Every services related with vehicle RC",
         "keywords": [
           "Vehicle related"
-        ]
+        ],
       }
+    ],
+    "Vehicle Registration": [
+      
     ]
   },
   "Health Services": {
