@@ -1,7 +1,7 @@
 const LOGO_DATA_URL = "logo.jpeg";
 
 const DEFAULT_DATA = {
-        "Certificates": {
+  "Certificates": {
     "_icon": "🖼",
     "_color": "#aeff00",
     "_links": [
@@ -9,9 +9,7 @@ const DEFAULT_DATA = {
         "name": "Birth Certificate",
         "url": "https://ksmart.lsgkerala.gov.in/ui/cr/public/quick-certificate-birth",
         "desc": "Get Birth Certificate quickly",
-        "keywords": [
-          "birth certificate"
-        ]
+        "keywords": ["birth certificate"]
       },
       {
         "name": "Death Certificate",
@@ -21,7 +19,6 @@ const DEFAULT_DATA = {
       }
     ]
   },
-  {
   "eDistrict Kerala": {
     "_icon": "🏛️",
     "_color": "#059669",
