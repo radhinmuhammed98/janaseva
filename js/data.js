@@ -1,6 +1,27 @@
 const LOGO_DATA_URL = "logo.jpeg";
 
 const DEFAULT_DATA = {
+        "Certificates": {
+    "_icon": "🖼",
+    "_color": "#aeff00",
+    "_links": [
+      {
+        "name": "Birth Certificate",
+        "url": "https://ksmart.lsgkerala.gov.in/ui/cr/public/quick-certificate-birth",
+        "desc": "Get Birth Certificate quickly",
+        "keywords": [
+          "birth certificate"
+        ]
+      },
+      {
+        "name": "Death Certificate",
+        "url": "https://ksmart.lsgkerala.gov.in/ui/cr/public/quick-certificate-death",
+        "desc": "get Death Certificate quickly",
+        "keywords": []
+      }
+    ]
+  },
+  {
   "eDistrict Kerala": {
     "_icon": "🏛️",
     "_color": "#059669",
@@ -52,26 +73,6 @@ const DEFAULT_DATA = {
           "bhumi"
         ]
       },
-        "Certificates": {
-    "_icon": "🖼",
-    "_color": "#aeff00",
-    "_links": [
-      {
-        "name": "Birth Certificate",
-        "url": "https://ksmart.lsgkerala.gov.in/ui/cr/public/quick-certificate-birth",
-        "desc": "Get Birth Certificate quickly",
-        "keywords": [
-          "birth certificate"
-        ]
-      },
-      {
-        "name": "Death Certificate",
-        "url": "https://ksmart.lsgkerala.gov.in/ui/cr/public/quick-certificate-death",
-        "desc": "get Death Certificate quickly",
-        "keywords": []
-      }
-    ]
-  },
       {
         "name": "Pay Property Tax",
         "url": "https://ksmart.lsgkerala.gov.in/ui/property-tax/quick-pay-tax/citizen",
@@ -482,11 +483,11 @@ const DEFAULT_DATA = {
         "keywords": [
           "kmtwwfb"
         ]
-      }
+      },
       {
         "name": "e-PASS",
         "url": "https://epass.tnega.org/login/within-country",
-        "desc": "Grab epass for tn",
+        "desc": "Grab E-Pass for TN",
         "keywords": [
           "epass"
         ]
