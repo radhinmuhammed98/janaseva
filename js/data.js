@@ -1,6 +1,6 @@
 const LOGO_DATA_URL = "logo.jpeg";
 
-const DEFAULT_DATA ={
+const DEFAULT_DATA = {
   "Canva": {
     "_icon": "🌆",
     "_color": "#00a1d6",
