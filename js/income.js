@@ -317,6 +317,7 @@ function inPeriod(item, range) {
     end.setDate(start.getDate() + 6);
     return date >= start && date <= end;
   }
+  if (range === "year") return date.getFullYear() === now.getFullYear();
   if (range === "month") return date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
   return true;
 }
@@ -692,6 +693,11 @@ function getFirebaseServices() {
   return window.firebaseServices;
 }
 
+function setText(selector, value) {
+  const el = qs(selector);
+  if (el) el.textContent = value;
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -704,6 +710,4 @@ function escapeHtml(value) {
 document.addEventListener("DOMContentLoaded", initIncomeView);
 
 
-
-
-//test
+// tes
