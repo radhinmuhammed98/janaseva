@@ -702,3 +702,8 @@ function escapeHtml(value) {
 }
 
 document.addEventListener("DOMContentLoaded", initIncomeView);
+
+
+
+
+//test
