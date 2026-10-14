@@ -211,19 +211,10 @@ const DEFAULT_DATA = {
       }
     ]
   },
-    "Parivahan Services": {
+  "Parivahan Services": {
     "_icon": "🚗",
     "_color": "#d97706",
     "_links": [
-      {
-        "name": "e-Challan",
-        "url": "https://echallan.parivahan.gov.in/index/accused-challan",
-        "desc": "pay challan of the vehicle",
-        "keywords": [
-          "challan",
-          "fine"
-        ]
-      },
       {
         "name": "Vehicle Tax",
         "url": "https://vahan.parivahan.gov.in/vahanservice/vahan/ui/statevalidation/homepage.xhtml?",
@@ -249,7 +240,7 @@ const DEFAULT_DATA = {
           "epass"
         ]
       },
-       {
+      {
         "name": "Print RC",
         "url": "https://vahan.parivahan.gov.in/vahanservice/vahan/ui/onlineservice/form_print_Rc.xhtml",
         "desc": "Print RC",
@@ -258,6 +249,15 @@ const DEFAULT_DATA = {
           "print"
         ]
       },
+      {
+        "name": "e-Challan",
+        "url": "https://echallan.parivahan.nic.in/challan/challan-services",
+        "desc": "pay challan of the vehicle",
+        "keywords": [
+          "challan",
+          "fine"
+        ]
+      }
     ],
     "Others": [
       {
